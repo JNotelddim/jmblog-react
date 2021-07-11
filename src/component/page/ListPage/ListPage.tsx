@@ -1,7 +1,9 @@
 import React from 'react';
 
+import CenteredLayout from '../../layout/CenteredLayout';
+
 const ListPage = () => {
-  return <div>ListPage</div>;
+  return <CenteredLayout>ListPage</CenteredLayout>;
 };
 
 export default ListPage;
