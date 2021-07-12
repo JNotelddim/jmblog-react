@@ -1,4 +1,5 @@
 // Modules
+import { config } from 'dotenv';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -7,6 +8,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import ListPage from './component/page/ListPage';
 
 // Initializations
+config();
 const queryClient = new QueryClient();
 
 // App Providers Hierarchy
