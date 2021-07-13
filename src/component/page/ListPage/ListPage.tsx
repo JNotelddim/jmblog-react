@@ -1,10 +1,16 @@
 import React from 'react';
+import { useState } from 'react';
+import useLogin from '../../../hook/useLogin';
 import usePosts from '../../../hook/usePosts';
 
 import CenteredLayout from '../../layout/CenteredLayout';
 
 const ListPage = () => {
   const { data: posts, isLoading, isError } = usePosts();
+  const { mutate } = useLogin();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <CenteredLayout>
@@ -19,6 +25,19 @@ const ListPage = () => {
             {title} {content}
           </p>
         ))}
+      <br />
+      <input value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        type="password"
+      />
+      <button
+        disabled={email === '' || password === ''}
+        onClick={() => mutate({ email, password })}
+      >
+        Login
+      </button>
     </CenteredLayout>
   );
 };

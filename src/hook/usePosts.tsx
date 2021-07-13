@@ -1,4 +1,6 @@
 import { QueryOptions, useQuery, UseQueryResult } from 'react-query';
+
+import fetch from './apiFetch';
 import { Post } from '../typings';
 
 // TODO move serializers to top-level file
@@ -18,16 +20,7 @@ const serializePosts = async (response: Response): Promise<Post[]> => {
 };
 
 const fetchPostsFn = async () => {
-  const url = process.env.REACT_APP_API_URL || '';
-
-  const headers = new Headers();
-  headers.append('Authorization', `Bearer ${process.env.REACT_APP_AUTH_TOKEN}`);
-  headers.append('Access-Control-Allow-Origin', `*`);
-
-  const response = await fetch(url + '/posts', {
-    method: 'GET',
-    headers,
-  });
+  const response = await fetch('/posts');
   const serialized = serializePosts(response);
   return serialized;
 };
