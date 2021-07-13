@@ -1,4 +1,5 @@
-import { QueryOptions, useQuery } from 'react-query';
+import { QueryOptions, useQuery, UseQueryResult } from 'react-query';
+import { PostList } from '../typings';
 
 const fetchPostsFn = async () => {
   const url = process.env.REACT_APP_API_URL || '';
@@ -14,7 +15,7 @@ const fetchPostsFn = async () => {
   return await result.json();
 };
 
-export const UsePosts = (options?: QueryOptions) => {
+export const UsePosts = (options?: QueryOptions): UseQueryResult<PostList> => {
   return useQuery('posts', fetchPostsFn, options);
 };
 

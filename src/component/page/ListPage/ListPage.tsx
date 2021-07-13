@@ -5,13 +5,20 @@ import CenteredLayout from '../../layout/CenteredLayout';
 
 const ListPage = () => {
   const { data: posts, isLoading, isError } = usePosts();
-  console.log(posts);
+
   return (
     <CenteredLayout>
       ListPage
       {isLoading && <div>Loading</div>}
       {isError && <div>Error</div>}
-      {/* {!isLoading && !isError && posts.map((post) => <p>{post.toString()}</p>)} */}
+      {!isLoading &&
+        !isError &&
+        posts &&
+        posts.map(({ title, content }) => (
+          <p>
+            {title} {content}
+          </p>
+        ))}
     </CenteredLayout>
   );
 };
