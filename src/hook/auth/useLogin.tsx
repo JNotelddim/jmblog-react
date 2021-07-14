@@ -2,12 +2,9 @@ import { useMutation } from 'react-query';
 
 import { fetch } from 'src/hook';
 
-interface LoginFormData {
-  email: string;
-  password: string;
-}
+import { AuthFormData } from 'src/typings';
 
-const loginFn = async (formData: LoginFormData) => {
+const loginFn = async (formData: AuthFormData) => {
   const res = await fetch(`/auth/login`, {
     method: 'POST',
     body: JSON.stringify(formData),

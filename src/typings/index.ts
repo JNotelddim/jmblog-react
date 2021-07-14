@@ -19,3 +19,8 @@ export interface Post {
   modifiedAt: ISODateString;
   title: string;
 }
+
+export interface AuthFormData {
+  email: string;
+  password: string;
+}
