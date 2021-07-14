@@ -1,9 +1,44 @@
 import React from 'react';
+import { useState } from 'react';
 
-import CenteredLayout from '../../layout/CenteredLayout';
+import { useSignup, usePosts } from 'src/hook';
+import CenteredLayout from 'src/component/layout/CenteredLayout';
 
 const ListPage = () => {
-  return <CenteredLayout>ListPage</CenteredLayout>;
+  const { data: posts, isLoading, isError } = usePosts({ enabled: false });
+  const { mutate } = useSignup();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  return (
+    <CenteredLayout>
+      ListPage
+      {isLoading && <div>Loading</div>}
+      {isError && <div>Error</div>}
+      {!isLoading &&
+        !isError &&
+        posts &&
+        posts.map(({ title, content }) => (
+          <p>
+            {title} {content}
+          </p>
+        ))}
+      <br />
+      <input value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        type="password"
+      />
+      <button
+        disabled={email === '' || password === ''}
+        onClick={() => mutate({ email, password })}
+      >
+        Signup
+      </button>
+    </CenteredLayout>
+  );
 };
 
 export default ListPage;

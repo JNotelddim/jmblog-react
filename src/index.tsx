@@ -1,11 +1,22 @@
+// Modules
+import { config } from 'dotenv';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
+// Local components
 import ListPage from './component/page/ListPage';
 
+// Initializations
+config();
+const queryClient = new QueryClient();
+
+// App Providers Hierarchy
 ReactDOM.render(
   <React.StrictMode>
-    <ListPage />
+    <QueryClientProvider client={queryClient}>
+      <ListPage />
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
