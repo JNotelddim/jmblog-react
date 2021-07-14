@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query';
 
-import fetch from './apiFetch';
+import { fetch } from 'src/hook';
 
 interface SignupFormData {
   email: string;

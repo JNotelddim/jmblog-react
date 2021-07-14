@@ -1,9 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
-import useSignup from '../../../hook/useSignup';
-import usePosts from '../../../hook/usePosts';
 
-import CenteredLayout from '../../layout/CenteredLayout';
+import { useSignup, usePosts } from 'src/hook';
+import CenteredLayout from 'src/component/layout/CenteredLayout';
 
 const ListPage = () => {
   const { data: posts, isLoading, isError } = usePosts({ enabled: false });
