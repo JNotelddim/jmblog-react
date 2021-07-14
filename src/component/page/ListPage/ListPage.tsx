@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
-import useLogin from '../../../hook/useLogin';
+import useSignup from '../../../hook/useSignup';
 import usePosts from '../../../hook/usePosts';
 
 import CenteredLayout from '../../layout/CenteredLayout';
 
 const ListPage = () => {
   const { data: posts, isLoading, isError } = usePosts();
-  const { mutate } = useLogin();
+  const { mutate } = useSignup();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +36,7 @@ const ListPage = () => {
         disabled={email === '' || password === ''}
         onClick={() => mutate({ email, password })}
       >
-        Login
+        Signup
       </button>
     </CenteredLayout>
   );
