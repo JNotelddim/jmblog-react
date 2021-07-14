@@ -1,8 +1,9 @@
 // Modules
 import React from 'react';
 
-// Layouts
+// Components
 import CenteredLayout from 'src/component/layout/CenteredLayout';
+import ErrorText from 'src/component/base/ErrorText';
 
 // Hooks
 import { useForm } from 'react-hook-form';
@@ -21,33 +22,34 @@ const prettyStringMap = {
 // Exports
 const AuthPage: React.FC<AuthPageProps> = ({ pageType }) => {
   const { mutate } = useLogin();
-  const {
-    register,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm<AuthFormData>();
+  const { register, handleSubmit, formState } = useForm<AuthFormData>();
+  const { isValid, errors } = formState;
 
   const onSubmit = (formData: AuthFormData) => {
-    mutate(formData);
+    if (isValid) {
+      mutate(formData);
+    }
   };
 
-  // TODO use react-hooks-form?
   return (
     <CenteredLayout>
       <h2>{prettyStringMap[pageType]}</h2>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Email</label>
-        <input {...register('email')} />
+        <input {...register('email', { required: true })} />
+        <ErrorText errorType={errors?.email} />
         <br />
 
         <label>Password</label>
-        <input type="password" {...register('password')} />
+        <input
+          type="password"
+          {...register('password', { required: true, minLength: 10 })}
+        />
+        <ErrorText errorType={errors?.password} />
         <br />
 
-        <button disabled={!isValid} type="submit">
-          {prettyStringMap[pageType]}
-        </button>
+        <button type="submit">{prettyStringMap[pageType]}</button>
       </form>
     </CenteredLayout>
   );
