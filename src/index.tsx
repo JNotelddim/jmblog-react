@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from '@material-ui/styles';
 
 // Local components
-import ListPage from './component/page/ListPage';
+import AuthPage from 'src/component/page/AuthPage';
 
 import theme from 'src/theme';
 
@@ -19,7 +19,7 @@ ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <ListPage />
+        <AuthPage pageType="LOGIN" />
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>,
