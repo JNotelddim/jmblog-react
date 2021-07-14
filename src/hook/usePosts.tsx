@@ -1,4 +1,4 @@
-import { QueryOptions, useQuery, UseQueryResult } from 'react-query';
+import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 
 import fetch from './apiFetch';
 import { Post } from '../typings';
@@ -25,7 +25,9 @@ const fetchPostsFn = async () => {
   return serialized;
 };
 
-export const UsePosts = (options?: QueryOptions): UseQueryResult<Post[]> => {
+export const UsePosts = (
+  options?: UseQueryOptions<Post[]>
+): UseQueryResult<Post[]> => {
   return useQuery('posts', fetchPostsFn, options);
 };
 

@@ -6,7 +6,7 @@ import usePosts from '../../../hook/usePosts';
 import CenteredLayout from '../../layout/CenteredLayout';
 
 const ListPage = () => {
-  const { data: posts, isLoading, isError } = usePosts();
+  const { data: posts, isLoading, isError } = usePosts({ enabled: false });
   const { mutate } = useSignup();
 
   const [email, setEmail] = useState('');
