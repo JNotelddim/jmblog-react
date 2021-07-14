@@ -5,6 +5,7 @@ export const apiFetch = (url: string, init?: RequestInit) => {
   headers.append('Authorization', `Bearer ${process.env.REACT_APP_AUTH_TOKEN}`);
   // TODO: is this needed?
   headers.append('Access-Control-Allow-Origin', `*`);
+  headers.append('Content-type', 'application/json; charset=utf-8');
 
   return fetch(urlBase + url, {
     method: 'GET',

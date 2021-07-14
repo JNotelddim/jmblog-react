@@ -7,10 +7,10 @@ interface LoginFormData {
   password: string;
 }
 
-const loginFn = async ({ email, password }: LoginFormData) => {
-  const queryString = `?email=${email}&password=${password}`;
-  const res = await fetch(`/auth/login${queryString}`, {
+const loginFn = async (formData: LoginFormData) => {
+  const res = await fetch(`/auth/login`, {
     method: 'POST',
+    body: JSON.stringify(formData),
   });
   // do I need to take the auth token manually here, or will it be set automatically?
   return res;
