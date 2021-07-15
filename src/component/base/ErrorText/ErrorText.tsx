@@ -1,6 +1,6 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
 
+import Text from 'src/component/base/Text';
 import { ErrorTextProps } from './ErrorText.type';
 
 type StringMap = {
@@ -27,8 +27,6 @@ const ErrorText: React.FC<ErrorTextProps> = ({
   customMessage,
   ...props
 }) => {
-  // TODO: color: red!
-
   if (!errorType) {
     return null;
   }
@@ -39,9 +37,9 @@ const ErrorText: React.FC<ErrorTextProps> = ({
       : '';
 
   return (
-    <Typography variant="body2" {...props}>
+    <Text variant="body2" color="error" {...props}>
       {message}
-    </Typography>
+    </Text>
   );
 };
 

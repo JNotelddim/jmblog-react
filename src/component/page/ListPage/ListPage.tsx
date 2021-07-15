@@ -9,7 +9,7 @@ const ListPage = () => {
 
   return (
     <CenteredLayout>
-      <Typography color="primary" variant="h1">
+      <Typography color="primary" variant="h1" gutterBottom>
         ListPage
       </Typography>
       {isLoading && <Typography color="secondary"> Loading </Typography>}
