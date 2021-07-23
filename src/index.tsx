@@ -7,7 +7,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { initializeServiceWorker } from './serviceWorker/initServiceWorker';
 
 // Local components
-import AuthPage from 'src/component/page/AuthPage';
+import Routes from 'src/component/page/Routes';
 
 // Theme
 import theme from 'src/theme';
@@ -22,7 +22,7 @@ ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <AuthPage pageType="LOGIN" />
+        <Routes />
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>,
