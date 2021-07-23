@@ -32,7 +32,9 @@ const pageCustomizationsMap = {
 
 // Exports
 const AuthPage: React.FC<AuthPageProps> = ({ pageType }) => {
-  const { register, handleSubmit, formState } = useForm<AuthFormData>();
+  const { register, handleSubmit, formState } = useForm<AuthFormData>({
+    mode: 'onBlur',
+  });
   const { isValid, errors } = formState;
   const { prettyString, useAuthHook } = pageCustomizationsMap[pageType];
   const { prettyString: oppositePrettyString, authRoute: oppositeAuthRoute } =
