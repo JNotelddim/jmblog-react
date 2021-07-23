@@ -41,9 +41,13 @@ const AuthPage: React.FC<AuthPageProps> = ({ pageType }) => {
     pageCustomizationsMap[pageType === LOGIN ? SIGNUP : LOGIN];
   const { mutate } = useAuthHook();
 
+  // TODO: add styles file (clean up this render block)
+  // TODO: add confirmation password field to ensure match
+
   const onSubmit = (formData: AuthFormData) => {
     if (isValid) {
       mutate(formData);
+      // TODO: redirect to /login after signup succesful, or to /list after login success
     }
   };
 
