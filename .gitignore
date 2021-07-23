@@ -3,6 +3,10 @@
 # env
 .env
 
+# cert
+/.cert
+*.pem
+
 # dependencies
 /node_modules
 /.pnp

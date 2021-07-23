@@ -9,23 +9,37 @@ import ErrorText from 'src/component/base/ErrorText';
 
 // Hooks
 import { useForm } from 'react-hook-form';
-import { useLogin } from 'src/hook';
+import { useLogin, useSignup } from 'src/hook';
 
 // Types
 import { LOGIN, SIGNUP, AuthPageProps } from './AuthPage.type';
 import { AuthFormData } from 'src/typings';
+import { Link } from 'react-router-dom';
 
 // Consts
-const prettyStringMap = {
-  [LOGIN]: 'Login',
-  [SIGNUP]: 'Signup',
+const pageCustomizationsMap = {
+  [LOGIN]: {
+    prettyString: 'Login',
+    authRoute: '/login',
+    useAuthHook: useLogin,
+  },
+  [SIGNUP]: {
+    prettyString: 'Sign up',
+    authRoute: '/signup',
+    useAuthHook: useSignup,
+  },
 };
 
 // Exports
 const AuthPage: React.FC<AuthPageProps> = ({ pageType }) => {
-  const { mutate } = useLogin();
-  const { register, handleSubmit, formState } = useForm<AuthFormData>();
+  const { register, handleSubmit, formState } = useForm<AuthFormData>({
+    mode: 'onBlur',
+  });
   const { isValid, errors } = formState;
+  const { prettyString, useAuthHook } = pageCustomizationsMap[pageType];
+  const { prettyString: oppositePrettyString, authRoute: oppositeAuthRoute } =
+    pageCustomizationsMap[pageType === LOGIN ? SIGNUP : LOGIN];
+  const { mutate } = useAuthHook();
 
   const onSubmit = (formData: AuthFormData) => {
     if (isValid) {
@@ -36,7 +50,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ pageType }) => {
   return (
     <CenteredLayout>
       <Text variant="h1" mb={6} mt={10}>
-        {prettyStringMap[pageType]}
+        {prettyString}
       </Text>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,10 +68,16 @@ const AuthPage: React.FC<AuthPageProps> = ({ pageType }) => {
           />
           <ErrorText errorType={errors?.password} />
 
-          <Box mt={2} display="flex" flexDirection="row">
-            <button type="submit">{prettyStringMap[pageType]}</button>
+          <Box
+            mt={4}
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+          >
+            <button type="submit">{prettyString}</button>
             <Text variant="body2" color="textSecondary" ml={2}>
-              Don't have an accout? Sign up here.
+              {pageType === LOGIN ? `Don't` : `Already`} have an accout?{' '}
+              <Link to={oppositeAuthRoute}>{oppositePrettyString} here.</Link>
             </Text>
           </Box>
         </Box>

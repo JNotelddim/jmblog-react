@@ -5,7 +5,7 @@ import { usePosts } from 'src/hook';
 import CenteredLayout from 'src/component/layout/CenteredLayout';
 
 const ListPage = () => {
-  const { data: posts, isLoading, isError } = usePosts({ enabled: false });
+  const { data: posts, isLoading, isError } = usePosts({ enabled: true });
 
   return (
     <CenteredLayout>
