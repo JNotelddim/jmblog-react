@@ -16,13 +16,14 @@ self.addEventListener('activate', function (event) {
 
 // Hardocded checks for origins/paths to send credentials to
 const whitelistedOrigins = [
-  'http://localhost', // dev
-  'http://localhost:3000', // dev
+  'https://localhost', // dev
+  'https://localhost:3000', // dev
   'http://localhost:8007', // dev
+  'https://localhost:8007', // dev // TODO: set up https for api?
   'https:jaredm.online//', // prod
 ];
 
-const whitelistedPathRegex = /\/api\/[^.]*$/; // anything under /api
+const whitelistedPathRegex = /\/|api|post.|user.|comment.|\/\w$/; // anything under /api
 
 // Global token variable in the service worker
 let token = '';
@@ -43,13 +44,14 @@ self.addEventListener('message', function (event) {
 // Helper function to add the auth header if the oubound request matches the whitelists
 const addAuthHeader = function (event) {
   const destURL = new URL(event.request.url);
+
   if (
     whitelistedOrigins.includes(destURL.origin) &&
     whitelistedPathRegex.test(destURL.pathname)
   ) {
     const modifiedHeaders = new Headers(event.request.headers);
     if (token) {
-      modifiedHeaders.append('Authorization', token);
+      modifiedHeaders.append('Authorization', 'bearer ' + token);
     }
     const authReq = new Request(event.request, {
       headers: modifiedHeaders,
