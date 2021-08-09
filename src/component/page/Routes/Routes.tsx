@@ -13,17 +13,19 @@ const Routes = () => {
     <BrowserRouter>
       <Switch>
         {/* PUBLIC ROUTES */}
-        <Route path="/login">
-          <AuthPage pageType="LOGIN" />
-        </Route>
+        <Route path="/public">
+          <Route path="/login">
+            <AuthPage pageType="LOGIN" />
+          </Route>
 
-        <Route path="/signup">
-          <AuthPage pageType="SIGNUP" />
-        </Route>
+          <Route path="/signup">
+            <AuthPage pageType="SIGNUP" />
+          </Route>
 
-        {/* TODO: find a way to make these routes private */}
-        <Route path="/">
-          <ListPage />
+          {/* TODO: find a way to make these routes private w/o breaking service worker access*/}
+          <Route path="/">
+            <ListPage />
+          </Route>
         </Route>
       </Switch>
     </BrowserRouter>

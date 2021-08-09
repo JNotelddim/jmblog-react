@@ -1,5 +1,6 @@
 export const initializeServiceWorker = () => {
   if ('serviceWorker' in navigator) {
+    console.log('[SW] registering');
     navigator.serviceWorker.register(
       process.env.PUBLIC_URL + '/serviceWorker.js'
     );
