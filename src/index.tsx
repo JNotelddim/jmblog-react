@@ -4,7 +4,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from '@material-ui/styles';
-import { initializeServiceWorker } from './serviceWorker/initServiceWorker';
 
 // Local components
 import Routes from 'src/component/page/Routes';
@@ -13,7 +12,6 @@ import Routes from 'src/component/page/Routes';
 import theme from 'src/theme';
 
 // Initializations
-initializeServiceWorker(); // Service worker
 config(); // dotenv
 const queryClient = new QueryClient(); // react-query
 
