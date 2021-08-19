@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-globals */
 // https://blog.ropnop.com/storing-tokens-in-browser/
 // copied from https://github.com/ropnop/tokenstorage/blob/master/serviceWorker.js
-/// <reference lib="WebWorker" />
 
 // These listeners will make the service worker immediately available for the page
 self.addEventListener('install', function (event) {
@@ -30,7 +29,7 @@ let token = '';
 
 // Exposed "method" for saving the token
 self.addEventListener('message', function (event) {
-  console.log('message event', event);
+  console.log('[SW] message event', event);
   if (event.data && event.data.type === 'SET_TOKEN') {
     token = event.data.token;
     console.log('[SW] token set!');

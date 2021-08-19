@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from '@material-ui/styles';
-import { initializeServiceWorker } from './serviceWorker/initServiceWorker';
+import { initializeServiceWorker } from './initServiceWorker';
 
 // Local components
 import Routes from 'src/component/page/Routes';

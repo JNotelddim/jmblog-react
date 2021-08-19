@@ -11,6 +11,12 @@ const loginFn = async (formData: AuthFormData) => {
     body: JSON.stringify(formData),
   });
   const { accessToken } = await serializeLoginResponse(res);
+  console.log('trying to set token,', accessToken);
+  console.log(
+    'is service worker null?',
+    navigator.serviceWorker.controller,
+    navigator.serviceWorker
+  );
   navigator.serviceWorker.controller?.postMessage({
     type: 'SET_TOKEN',
     token: accessToken,
