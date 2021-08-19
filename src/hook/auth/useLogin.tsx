@@ -11,7 +11,7 @@ const loginFn = async (formData: AuthFormData) => {
     body: JSON.stringify(formData),
   });
   const { accessToken } = await serializeLoginResponse(res);
-  // TODO: save access token in localStorage
+  localStorage.setItem('accessToken', accessToken);
   return res;
 };
 
