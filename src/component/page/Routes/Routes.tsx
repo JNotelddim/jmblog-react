@@ -23,7 +23,7 @@ const Routes = () => {
           </Route>
 
           {/* TODO: find a way to make these routes private w/o breaking service worker access*/}
-          <Route path="/">
+          <Route path={['', '/list']} exact>
             <ListPage />
           </Route>
         </Route>
