@@ -11,7 +11,10 @@ const loginFn = async (formData: AuthFormData) => {
     body: JSON.stringify(formData),
   });
   const { accessToken } = await serializeLoginResponse(res);
-  localStorage.setItem('accessToken', accessToken);
+  navigator.serviceWorker.controller?.postMessage({
+    type: 'SET_TOKEN',
+    token: accessToken,
+  });
   return res;
 };
 
