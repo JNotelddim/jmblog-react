@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { RootState } from 'src/typings/redux';
 import { User, UserState } from 'src/typings/user';
 
 const initialState: UserState = {
   isAuthenticated: false,
-  user: undefined,
+  profile: undefined,
 };
 
 export const userSlice = createSlice({
@@ -12,22 +13,23 @@ export const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
-      state.user = action.payload;
+      state.profile = action.payload;
     },
     login: (state) => {
       state.isAuthenticated = true;
     },
     logout: (state) => {
       state.isAuthenticated = false;
-      state.user = undefined;
+      state.profile = undefined;
     },
   },
 });
 
 export const { login, logout } = userSlice.actions;
 
-export const selectUsername = (state: UserState) => state.user?.username;
-export const selectisAuthenticated = (state: UserState) =>
-  state.isAuthenticated;
+export const selectUsername = (state: RootState) =>
+  state.user.profile?.username;
+export const selectIsAuthenticated = (state: RootState) =>
+  state.user.isAuthenticated;
 
 export default userSlice.reducer;

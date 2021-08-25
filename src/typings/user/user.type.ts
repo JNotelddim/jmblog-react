@@ -19,5 +19,5 @@ export interface User {
 
 export interface UserState {
   isAuthenticated: boolean;
-  user?: User;
+  profile?: User;
 }

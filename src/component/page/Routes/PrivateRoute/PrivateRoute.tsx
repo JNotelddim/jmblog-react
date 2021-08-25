@@ -1,18 +1,17 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-// import { useAuth } from 'src/hook/auth';
+import { useAppSelector } from 'src/hook';
+import { selectIsAuthenticated } from 'src/redux';
 
 const PrivateRoute: React.FC = ({ children, ...rest }) => {
-  // const auth = useAuth();
-  // TODO: create hook for getting auth state
-  const auth = { user: null };
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        auth.user ? (
+        isAuthenticated ? (
           children
         ) : (
           <Redirect
