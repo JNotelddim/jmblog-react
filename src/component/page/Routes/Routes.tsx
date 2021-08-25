@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 // Pages
-import AuthPage from 'src/component/page/AuthPage';
+import LoginPage from 'src/component/page/LoginPage';
+import SignupPage from 'src/component/page/SignupPage';
 import ListPage from 'src/component/page/ListPage';
 import PrivateRoute from './PrivateRoute';
 
@@ -15,14 +16,14 @@ const Routes = () => {
       <Switch>
         {/* PUBLIC ROUTES */}
         <Route path="/login">
-          <AuthPage pageType="LOGIN" />
+          <LoginPage />
         </Route>
 
         <Route path="/signup">
-          <AuthPage pageType="SIGNUP" />
+          <SignupPage />
         </Route>
 
-        <PrivateRoute path={['/', 'list']}>
+        <PrivateRoute path={['/', 'list']} exact>
           <ListPage />
         </PrivateRoute>
       </Switch>

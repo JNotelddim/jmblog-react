@@ -20,9 +20,13 @@ export interface Post {
   title: string;
 }
 
-export interface AuthFormData {
+export interface LoginFormData {
   email: string;
   password: string;
+}
+export interface SignupFormData extends LoginFormData {
+  username?: string;
+  passwordConfirmation: string;
 }
 
 export interface LoginResponse {
