@@ -18,9 +18,6 @@ export interface User {
 }
 
 export interface UserState {
+  isAuthenticated: boolean;
   user?: User;
 }
-
-export const initialState: UserState = {
-  user: undefined,
-};
