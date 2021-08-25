@@ -3,11 +3,11 @@ import { useMutation, UseMutationOptions } from 'react-query';
 import { fetch } from 'src/hook';
 import { login } from 'src/redux';
 
-import { AuthFormData } from 'src/typings';
+import { LoginFormData } from 'src/typings';
 import { useAppDispatch } from '../redux';
 import { serializeLoginResponse } from './login.serializer';
 
-const loginFn = async (formData: AuthFormData) => {
+const loginFn = async (formData: LoginFormData) => {
   const res = await fetch(`/auth/login`, {
     method: 'POST',
     body: JSON.stringify(formData),
@@ -21,7 +21,7 @@ const loginFn = async (formData: AuthFormData) => {
 };
 
 export const UseLogin = (
-  options?: UseMutationOptions<Response, unknown, AuthFormData>
+  options?: UseMutationOptions<Response, unknown, LoginFormData>
 ) => {
   const dispatch = useAppDispatch();
   const { onSuccess, ...remainingOptions } = options || {};

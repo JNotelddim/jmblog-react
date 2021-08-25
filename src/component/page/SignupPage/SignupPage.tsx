@@ -21,7 +21,7 @@ const SignupPage: React.FC = () => {
     mode: 'onBlur',
   });
   const { isValid, errors } = formState;
-  const { mutate: login } = useSignup();
+  const { mutate: signup } = useSignup();
   // {
   //   onSuccess: () => {
   //   // TODO add options
@@ -33,7 +33,7 @@ const SignupPage: React.FC = () => {
 
   const onSubmit = (formData: SignupFormData) => {
     if (isValid) {
-      login(formData);
+      signup(formData);
     }
   };
 
@@ -54,20 +54,28 @@ const SignupPage: React.FC = () => {
           </Text>
           <input
             type="password"
-            {...register('password', { required: true, minLength: 10 })}
+            {...register('password', {
+              required: true,
+              minLength: 10,
+              maxLength: 100,
+            })}
           />
+          <ErrorText errorType={errors?.password} />
+
+          <Text variant="h6" mt={2}>
+            Confirm Password
+          </Text>
           <input
             type="password"
             {...register('passwordConfirmation', {
               required: true,
-              minLength: 10,
               validate: () => {
                 // TODO: logic for validating that this field matches 'password'
                 return false;
               },
             })}
           />
-          <ErrorText errorType={errors?.password} />
+          <ErrorText errorType={errors?.passwordConfirmation} />
 
           <Box
             mt={4}
