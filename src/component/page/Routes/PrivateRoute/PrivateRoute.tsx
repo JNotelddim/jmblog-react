@@ -1,10 +1,10 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, RouteProps } from 'react-router-dom';
 
 import { useAppSelector } from 'src/hook';
 import { selectIsAuthenticated } from 'src/redux';
 
-const PrivateRoute: React.FC = ({ children, ...rest }) => {
+const PrivateRoute: React.FC<RouteProps> = ({ children, ...rest }) => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
   return (
