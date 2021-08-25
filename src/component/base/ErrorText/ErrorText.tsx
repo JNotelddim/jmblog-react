@@ -13,7 +13,7 @@ const errorTypeMessageMap: StringMap = {
   // max: '',
   minLength: 'This value does not meet length requirements.',
   // maxLength: '',
-  // pattern: '',
+  pattern: 'This value does not match the expected pattern.',
   // validate: '',
   // valueAsNumber: '',
   // valueAsDate: '',
@@ -24,17 +24,17 @@ const errorTypeMessageMap: StringMap = {
 
 const ErrorText: React.FC<ErrorTextProps> = ({
   errorType,
-  customMessage,
+  customMessage = '',
   ...props
 }) => {
   if (!errorType) {
     return null;
   }
 
-  const message =
-    customMessage || Object.keys(errorTypeMessageMap).includes(errorType.type)
-      ? errorTypeMessageMap[errorType.type as string]
-      : '';
+  let message = customMessage;
+  if (Object.keys(errorTypeMessageMap).includes(errorType.type)) {
+    message = errorTypeMessageMap[errorType.type];
+  }
 
   return (
     <Text variant="body2" color="error" {...props}>

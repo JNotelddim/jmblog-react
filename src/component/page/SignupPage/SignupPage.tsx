@@ -17,9 +17,10 @@ import { Link } from 'react-router-dom';
 
 // Exports
 const SignupPage: React.FC = () => {
-  const { register, handleSubmit, formState } = useForm<SignupFormData>({
-    mode: 'onBlur',
-  });
+  const { register, handleSubmit, formState, getValues } =
+    useForm<SignupFormData>({
+      mode: 'onBlur',
+    });
   const { isValid, errors } = formState;
   const { mutate: signup } = useSignup();
   // {
@@ -46,7 +47,14 @@ const SignupPage: React.FC = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box display="flex" flexDirection="column" height="50%">
           <Text variant="h6">Email</Text>
-          <input {...register('email', { required: true })} />
+          <input
+            type="email"
+            {...register('email', {
+              required: true,
+              pattern:
+                /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+            })}
+          />
           <ErrorText errorType={errors?.email} />
 
           <Text variant="h6" mt={2}>
@@ -69,13 +77,16 @@ const SignupPage: React.FC = () => {
             type="password"
             {...register('passwordConfirmation', {
               required: true,
-              validate: () => {
-                // TODO: logic for validating that this field matches 'password'
-                return false;
+              validate: (value) => {
+                const otherValue = getValues('password');
+                return value === otherValue;
               },
             })}
           />
-          <ErrorText errorType={errors?.passwordConfirmation} />
+          <ErrorText
+            errorType={errors?.passwordConfirmation}
+            customMessage="These values must match."
+          />
 
           <Box
             mt={4}
