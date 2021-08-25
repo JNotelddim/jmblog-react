@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 // Pages
 import AuthPage from 'src/component/page/AuthPage';
 import ListPage from 'src/component/page/ListPage';
+import PrivateRoute from './PrivateRoute';
 
 /**
  * Routes is a component which uses react-router to handle routing and navigation for the app.
@@ -21,10 +22,9 @@ const Routes = () => {
           <AuthPage pageType="SIGNUP" />
         </Route>
 
-        {/* TODO: find a way to make these routes private */}
-        <Route path="/">
+        <PrivateRoute path={['/', 'list']}>
           <ListPage />
-        </Route>
+        </PrivateRoute>
       </Switch>
     </BrowserRouter>
   );
