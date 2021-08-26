@@ -12,8 +12,9 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User>) => {
+    setProfile: (state, action: PayloadAction<User>) => {
       state.profile = action.payload;
+      state.isAuthenticated = true;
     },
     login: (state) => {
       state.isAuthenticated = true;
@@ -25,7 +26,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { setProfile, login, logout } = userSlice.actions;
 
 export const selectUsername = (state: RootState) =>
   state.user.profile?.username;
