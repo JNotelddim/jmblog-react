@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation, UseMutationOptions } from 'react-query';
 
 import { fetch } from 'src/hook';
 import { SignupFormData } from 'src/typings';
@@ -11,8 +11,10 @@ const signupFn = async (formData: SignupFormData) => {
   return res;
 };
 
-export const useSignup = () => {
-  return useMutation(signupFn);
+export const useSignup = (
+  options?: UseMutationOptions<Response, unknown, SignupFormData>
+) => {
+  return useMutation(signupFn, options);
 };
 
 export default useSignup;

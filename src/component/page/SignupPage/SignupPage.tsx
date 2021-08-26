@@ -25,7 +25,6 @@ const SignupPage: React.FC = () => {
   const { mutate: signup } = useSignup();
   // {
   //   onSuccess: () => {
-  //   // TODO add options
   //     // TODO: redirect to /login
   //   },
   // });
