@@ -18,7 +18,7 @@ const ListPage = () => {
         !isError &&
         posts &&
         posts.map(({ title, content }) => (
-          <p>
+          <p key={title}>
             {title} {content}
           </p>
         ))}
