@@ -28,6 +28,7 @@ export const userSlice = createSlice({
 
 export const { setProfile, login, logout } = userSlice.actions;
 
+export const selectUserId = (state: RootState) => state.user.profile?.id;
 export const selectUsername = (state: RootState) =>
   state.user.profile?.username;
 export const selectIsAuthenticated = (state: RootState) =>
