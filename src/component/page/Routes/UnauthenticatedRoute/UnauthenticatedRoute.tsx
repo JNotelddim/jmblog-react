@@ -5,9 +5,10 @@ import { useAppSelector } from 'src/hook';
 import { selectIsAuthenticated } from 'src/redux';
 
 /**
- * PrivateRoute is used for routes which are only available to authenticated users.
+ * UnauthenticatedRoute is used for routes which should only be accessible to users
+ * who are not logged in. For example, /login, or /signup
  */
-const PrivateRoute: React.FC<RouteProps> = ({ children, ...rest }) => {
+const UnauthenticatedRoute: React.FC<RouteProps> = ({ children, ...rest }) => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
   return (
@@ -15,18 +16,18 @@ const PrivateRoute: React.FC<RouteProps> = ({ children, ...rest }) => {
       {...rest}
       render={({ location }) =>
         isAuthenticated ? (
-          children
-        ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: '/',
               state: { from: location },
             }}
           />
+        ) : (
+          children
         )
       }
     />
   );
 };
 
-export default PrivateRoute;
+export default UnauthenticatedRoute;

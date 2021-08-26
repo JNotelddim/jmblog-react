@@ -5,7 +5,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import LoginPage from 'src/component/page/LoginPage';
 import SignupPage from 'src/component/page/SignupPage';
 import ListPage from 'src/component/page/ListPage';
+
 import PrivateRoute from './PrivateRoute';
+import UnauthenticatedRoute from './UnauthenticatedRoute';
 
 /**
  * Routes is a component which uses react-router to handle routing and navigation for the app.
@@ -15,13 +17,13 @@ const Routes = () => {
     <BrowserRouter>
       <Switch>
         {/* PUBLIC ROUTES */}
-        <Route path="/login">
+        <UnauthenticatedRoute path="/login">
           <LoginPage />
-        </Route>
+        </UnauthenticatedRoute>
 
-        <Route path="/signup">
+        <UnauthenticatedRoute path="/signup">
           <SignupPage />
-        </Route>
+        </UnauthenticatedRoute>
 
         <PrivateRoute path={['/', 'list']} exact>
           <ListPage />
