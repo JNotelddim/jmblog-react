@@ -19,3 +19,19 @@ export interface Post {
   modifiedAt: ISODateString;
   title: string;
 }
+
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
+export interface SignupFormData extends LoginFormData {
+  username?: string;
+  passwordConfirmation: string;
+}
+
+export interface LoginResponse {
+  accessToken: string;
+}
+
+export * from './user';
+export * from './redux';
