@@ -1,73 +1,70 @@
 // Modules
 import React from 'react';
-import { Box } from '@material-ui/core';
 
 // Components
+import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import CenteredLayout from 'src/component/layout/CenteredLayout';
-import Text from 'src/component/base/Text';
-import ErrorText from 'src/component/base/ErrorText';
+import EmailField from 'src/component/form/EmailField';
+import PasswordField from 'src/component/form/PasswordField';
+import {
+  Heading,
+  Wrapper,
+  FootingContainer,
+  RedirectText,
+} from './LoginPage.style';
 
 // Hooks
 import { useForm } from 'react-hook-form';
-import { useLogin } from 'src/hook';
+import { useLogin } from 'src/hook/api/auth';
 
 // Types
 import { LoginFormData } from 'src/typings';
-import { Link } from 'react-router-dom';
 
-// Exports
+/**
+ * LoginPage is the page where a user goes to log in to their account.
+ * It also gives the option to navigate to the sign up page for users
+ * who do not have an account already.
+ */
 const LoginPage: React.FC = () => {
+  // Hooks
   const { register, handleSubmit, formState } = useForm<LoginFormData>({
     mode: 'onBlur',
   });
+  const { mutate: login } = useLogin();
   const { isValid, errors } = formState;
-  const { mutate: login } = useLogin({
-    onSuccess: () => {
-      // TODO: redirect to /lists
-    },
-  });
 
-  // TODO: add styles file (clean up this render block)
-
+  // Handlers
   const onSubmit = (formData: LoginFormData) => {
     if (isValid) {
       login(formData);
     }
   };
 
+  // Render
   return (
     <CenteredLayout>
-      <Text variant="h1" mb={6} mt={10}>
-        Login
-      </Text>
+      <Heading>Login</Heading>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box display="flex" flexDirection="column" height="50%">
-          <Text variant="h6">Email</Text>
-          <input {...register('email', { required: true })} />
-          <ErrorText errorType={errors?.email} />
-
-          <Text variant="h6" mt={2}>
-            Password
-          </Text>
-          <input
-            type="password"
-            {...register('password', { required: true, minLength: 10 })}
+        <Wrapper>
+          <EmailField
+            inputProps={{ ...register('email', { required: true }) }}
+            errorType={errors?.email}
           />
-          <ErrorText errorType={errors?.password} />
 
-          <Box
-            mt={4}
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-          >
-            <button type="submit">Login</button>
-            <Text variant="body2" color="textSecondary" ml={2}>
+          <PasswordField
+            inputProps={{ ...register('password', { required: true }) }}
+            errorType={errors?.password}
+          />
+
+          <FootingContainer>
+            <Button type="submit">Login</Button>
+            <RedirectText>
               Don't have an accout? <Link to={'/signup'}>Sign up here.</Link>
-            </Text>
-          </Box>
-        </Box>
+            </RedirectText>
+          </FootingContainer>
+        </Wrapper>
       </form>
     </CenteredLayout>
   );

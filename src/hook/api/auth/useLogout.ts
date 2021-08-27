@@ -14,6 +14,7 @@ const UseLogOut = () => {
     navigator.serviceWorker.controller?.postMessage({
       type: 'CLEAR_TOKEN',
     });
+    // TODO: invalidate all queries?
     queryClient.invalidateQueries('profile');
     dispatch(logout());
   };

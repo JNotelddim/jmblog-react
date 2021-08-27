@@ -1,10 +1,10 @@
 import { useMutation, UseMutationOptions } from 'react-query';
 
-import { fetch } from 'src/hook';
+import { fetch } from 'src/hook/api';
 import { login } from 'src/redux';
 
 import { LoginFormData } from 'src/typings';
-import { useAppDispatch } from '../redux';
+import { useAppDispatch } from 'src/hook/redux';
 import { serializeLoginResponse } from './login.serializer';
 
 const loginFn = async (formData: LoginFormData) => {

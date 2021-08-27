@@ -1,104 +1,97 @@
 // Modules
 import React from 'react';
-import { Box } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 // Components
 import CenteredLayout from 'src/component/layout/CenteredLayout';
-import Text from 'src/component/base/Text';
-import ErrorText from 'src/component/base/ErrorText';
+import EmailField from 'src/component/form/EmailField';
+import PasswordField from 'src/component/form/PasswordField';
+import {
+  Heading,
+  Wrapper,
+  FootingContainer,
+  RedirectText,
+  // Note that these are styles from the Login Page!
+} from 'src/component/page/LoginPage/LoginPage.style';
 
 // Hooks
 import { useForm } from 'react-hook-form';
-import { useSignup } from 'src/hook';
+import { useSignup } from 'src/hook/api/auth';
 
 // Types
 import { SignupFormData } from 'src/typings';
 import { Link } from 'react-router-dom';
 
-// Exports
+/**
+ * SignupPage is the page where a user comes to create an account.
+ * After the successful account creation, they will be redirected to the /login page.
+ */
 const SignupPage: React.FC = () => {
+  // Hooks
   const { register, handleSubmit, formState, getValues } =
     useForm<SignupFormData>({
       mode: 'onBlur',
     });
+  const { mutate: signup } = useSignup(); // TODO: onsuccess redirect to /login
   const { isValid, errors } = formState;
-  const { mutate: signup } = useSignup();
-  // {
-  //   onSuccess: () => {
-  //     // TODO: redirect to /login
-  //   },
-  // });
 
-  // TODO: add styles file (clean up this render block)
-
+  // Handlers
   const onSubmit = (formData: SignupFormData) => {
     if (isValid) {
       signup(formData);
     }
   };
 
+  // Render
   return (
     <CenteredLayout>
-      <Text variant="h1" mb={6} mt={10}>
-        Sign up
-      </Text>
+      <Heading>Sign up</Heading>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box display="flex" flexDirection="column" height="50%">
-          <Text variant="h6">Email</Text>
-          <input
-            type="email"
-            {...register('email', {
-              required: true,
-              pattern:
-                /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-            })}
+        <Wrapper>
+          <EmailField
+            inputProps={{
+              ...register('email', {
+                required: true,
+                pattern:
+                  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+              }),
+            }}
+            errorType={errors?.email}
           />
-          <ErrorText errorType={errors?.email} />
 
-          <Text variant="h6" mt={2}>
-            Password
-          </Text>
-          <input
-            type="password"
-            {...register('password', {
-              required: true,
-              minLength: 10,
-              maxLength: 100,
-            })}
+          <PasswordField
+            inputProps={{
+              ...register('password', {
+                required: true,
+                minLength: 10,
+                maxLength: 100,
+              }),
+            }}
+            errorType={errors?.password}
           />
-          <ErrorText errorType={errors?.password} />
 
-          <Text variant="h6" mt={2}>
-            Confirm Password
-          </Text>
-          <input
-            type="password"
-            {...register('passwordConfirmation', {
-              required: true,
-              validate: (value) => {
-                const otherValue = getValues('password');
-                return value === otherValue;
-              },
-            })}
-          />
-          <ErrorText
+          <PasswordField
+            label="Confirm Password"
+            inputProps={{
+              ...register('passwordConfirmation', {
+                required: true,
+                validate: (value) => {
+                  const otherValue = getValues('password');
+                  return value === otherValue;
+                },
+              }),
+            }}
             errorType={errors?.passwordConfirmation}
-            customMessage="These values must match."
           />
 
-          <Box
-            mt={4}
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
-          >
-            <button type="submit">Sign up</button>
-            <Text variant="body2" color="textSecondary" ml={2}>
-              Already have an accout? <Link to={'/login'}>Log in here.</Link>
-            </Text>
-          </Box>
-        </Box>
+          <FootingContainer>
+            <Button type="submit">Sign up</Button>
+            <RedirectText>
+              Already have an accout? <Link to={'/login'}>Login here.</Link>
+            </RedirectText>
+          </FootingContainer>
+        </Wrapper>
       </form>
     </CenteredLayout>
   );

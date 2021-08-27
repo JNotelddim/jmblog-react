@@ -1,7 +1,7 @@
 // Modules
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 
-import { fetch } from 'src/hook';
+import { fetch } from 'src/hook/api';
 
 // Serializers
 import { serializeUser } from './user.serializer';

@@ -1,5 +1,8 @@
 export type IdString = string;
 export type ISODateString = string;
+export type StringMap = {
+  [key: string]: string;
+};
 
 export interface Comment {
   id: string;

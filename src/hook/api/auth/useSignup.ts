@@ -1,6 +1,6 @@
 import { useMutation, UseMutationOptions } from 'react-query';
 
-import { fetch } from 'src/hook';
+import { fetch } from 'src/hook/api';
 import { SignupFormData } from 'src/typings';
 
 const signupFn = async (formData: SignupFormData) => {

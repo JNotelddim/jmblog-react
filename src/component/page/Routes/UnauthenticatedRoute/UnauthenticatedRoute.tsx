@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 
-import { useAppSelector } from 'src/hook';
+import { useAppSelector } from 'src/hook/redux';
 import { selectIsAuthenticated } from 'src/redux';
 
 /**
