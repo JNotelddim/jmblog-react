@@ -25,11 +25,11 @@ const Routes = () => {
 
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const dispatch = useAppDispatch();
-  const { data: profile, isFetching } = useProfile();
+  const { data: profile, isFetching, isStale } = useProfile();
 
   // is there somewhere better that this could live? :thinking:
   useEffect(() => {
-    if (!isAuthenticated && !isFetching && profile !== undefined) {
+    if (!isAuthenticated && !isFetching && !isStale && profile !== undefined) {
       dispatch(setProfile(profile));
     }
   }, [isAuthenticated, dispatch, profile, isFetching]);
