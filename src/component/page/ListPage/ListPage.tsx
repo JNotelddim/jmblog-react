@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 
-import { usePosts } from 'src/hook';
+import { usePosts } from 'src/hook/api/posts';
 import CenteredLayout from 'src/component/layout/CenteredLayout';
 
 const ListPage = () => {

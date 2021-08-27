@@ -9,7 +9,8 @@ import Text from 'src/component/base/Text';
 import { Container } from './NavHeader.style';
 
 // Hooks
-import { useAppSelector, useLogOut } from 'src/hook';
+import { useAppSelector } from 'src/hook/redux';
+import { useLogOut } from 'src/hook/api/auth';
 
 // Selectors + Actions
 import { selectIsAuthenticated } from 'src/redux/user';

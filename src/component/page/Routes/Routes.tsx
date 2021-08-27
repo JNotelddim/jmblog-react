@@ -11,7 +11,7 @@ import PrivateRoute from './PrivateRoute';
 import UnauthenticatedRoute from './UnauthenticatedRoute';
 
 // Hooks
-import { useProfile } from 'src/hook/user';
+import { useProfile } from 'src/hook/api/user';
 import { useAppDispatch, useAppSelector } from 'src/hook/redux';
 
 // State Selectors
