@@ -10,11 +10,13 @@ const UseLogOut = () => {
   const queryClient = useQueryClient();
 
   const handleLogOut = () => {
-    console.log('handleLogOut');
+    // Remove token from ServiceWorker (ie, auth header will no longer be sent with reqs to api)
     navigator.serviceWorker.controller?.postMessage({
       type: 'CLEAR_TOKEN',
     });
-    queryClient.invalidateQueries('profile');
+    // Clear RQ cache -- to ensure data for the previously auth'd user doesn't stick around
+    queryClient.getQueryCache().clear();
+    // Update app auth state
     dispatch(logout());
   };
 

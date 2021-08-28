@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from 'src/hook/redux';
 
 // State Selectors
 import { selectIsAuthenticated, setProfile } from 'src/redux';
+import { useState } from 'react';
 
 /**
  * Routes is a component which uses react-router to handle routing and navigation for the app.
@@ -25,14 +26,20 @@ const Routes = () => {
 
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const dispatch = useAppDispatch();
-  const { data: profile, isFetching, isStale } = useProfile();
+  const [checkQueryEnabled, setCheckQueryEnabled] = useState(true);
+  const { data: profile } = useProfile({
+    enabled: checkQueryEnabled,
+    onSettled: () => {
+      setCheckQueryEnabled(false);
+    },
+  });
 
   // is there somewhere better that this could live? :thinking:
   useEffect(() => {
-    if (!isAuthenticated && !isFetching && !isStale && profile !== undefined) {
+    if (!isAuthenticated && profile !== undefined) {
       dispatch(setProfile(profile));
     }
-  }, [isAuthenticated, dispatch, profile, isFetching]);
+  }, [isAuthenticated, dispatch, profile]);
 
   return (
     <BrowserRouter>
