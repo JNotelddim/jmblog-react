@@ -20,7 +20,7 @@ import { useSignup } from 'src/hook/api/auth';
 
 // Types
 import { SignupFormData } from 'src/typings';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 /**
  * SignupPage is the page where a user comes to create an account.
@@ -28,11 +28,17 @@ import { Link } from 'react-router-dom';
  */
 const SignupPage: React.FC = () => {
   // Hooks
+  const history = useHistory();
   const { register, handleSubmit, formState, getValues } =
     useForm<SignupFormData>({
       mode: 'onBlur',
     });
-  const { mutate: signup } = useSignup(); // TODO: onsuccess redirect to /login
+  const { mutate: signup } = useSignup({
+    onSuccess: () => {
+      history.push('/login');
+      // TODO success snackbar once snackbar provider is set up
+    },
+  });
   const { isValid, errors } = formState;
 
   // Handlers
