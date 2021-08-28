@@ -4,9 +4,11 @@ import React from 'react';
 // Components
 import Text from 'src/component/base/Text';
 import CenteredLayout from 'src/component/layout/CenteredLayout';
+import PostView from 'src/component/view/PostView';
+import PostEditView from 'src/component/view/PostEditView';
 
 // Hooks
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { usePost } from 'src/hook/api/posts';
 
 // Types
@@ -17,18 +19,24 @@ import { PostRouteParams } from './PostPage.type';
  * post link from the list page.
  */
 const PostPage: React.FC = () => {
+  // Hooks
   const { id } = useParams<PostRouteParams>();
-  // get post by id;
-  const { data: post } = usePost(id);
-  const { title, author, content, createdAt } = post || {};
+  const { pathname } = useLocation();
+  const { data: post, isLoading } = usePost(id);
 
+  // State
+  const isEditing = pathname.includes('/edit');
+
+  // Render
   return (
     <CenteredLayout>
-      <Text variant="h2">{title}</Text>
-      <Text variant="subtitle1">
-        - {author}, {createdAt}
-      </Text>
-      <Text variant="body1">{content}</Text>
+      {isLoading && <Text>Loading...</Text>}
+      {!isLoading && post !== undefined && !isEditing && (
+        <PostView post={post} />
+      )}
+      {!isLoading && post !== undefined && isEditing && (
+        <PostEditView post={post} />
+      )}
     </CenteredLayout>
   );
 };

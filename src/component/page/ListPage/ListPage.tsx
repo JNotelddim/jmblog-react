@@ -18,7 +18,11 @@ const ListPage = () => {
       {!isLoading &&
         !isError &&
         posts &&
-        posts.map(({ id, title }) => <Link to={`/post/${id}`}>{title}</Link>)}
+        posts.map(({ id, title }) => (
+          <Link to={`/post/${id}`} key={id}>
+            {title}
+          </Link>
+        ))}
     </CenteredLayout>
   );
 };
