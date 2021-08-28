@@ -3,6 +3,7 @@ import { Typography } from '@material-ui/core';
 
 import { usePosts } from 'src/hook/api/posts';
 import CenteredLayout from 'src/component/layout/CenteredLayout';
+import { Link } from 'react-router-dom';
 
 const ListPage = () => {
   const { data: posts, isLoading, isError } = usePosts({ enabled: true });
@@ -17,11 +18,7 @@ const ListPage = () => {
       {!isLoading &&
         !isError &&
         posts &&
-        posts.map(({ title, content }) => (
-          <p key={title}>
-            {title} {content}
-          </p>
-        ))}
+        posts.map(({ id, title }) => <Link to={`/post/${id}`}>{title}</Link>)}
     </CenteredLayout>
   );
 };

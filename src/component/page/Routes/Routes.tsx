@@ -12,6 +12,7 @@ import UnauthenticatedRoute from './UnauthenticatedRoute';
 
 // Hooks
 import { useRehydrateAuthState } from 'src/hook/effect/rehydrateAuthState';
+import PostPage from '../PostPage/PostPage';
 
 /**
  * Routes is a component which uses react-router to handle routing and navigation for the app.
@@ -32,8 +33,12 @@ const Routes = () => {
           <SignupPage />
         </UnauthenticatedRoute>
 
-        <PrivateRoute path={['/', 'list']} exact>
+        <PrivateRoute path={['/', '/list']} exact>
           <ListPage />
+        </PrivateRoute>
+
+        <PrivateRoute path="/post/:id">
+          <PostPage />
         </PrivateRoute>
       </Switch>
     </BrowserRouter>
