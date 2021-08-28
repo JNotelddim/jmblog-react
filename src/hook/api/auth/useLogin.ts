@@ -13,6 +13,7 @@ const loginFn = async (formData: LoginFormData) => {
     body: JSON.stringify(formData),
   });
   const { accessToken } = await serializeLoginResponse(res);
+  // Set token with ServiceWorker so that requests to API send with "Authorization" header
   navigator.serviceWorker.controller?.postMessage({
     type: 'SET_TOKEN',
     token: accessToken,

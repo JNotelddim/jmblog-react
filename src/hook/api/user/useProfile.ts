@@ -14,6 +14,7 @@ const fetchProfileFn = async () => {
   const response = await fetch('/profile');
 
   if (response.status >= 400) {
+    // TODO: figure out a system for catching errors so they don't clog up the console.
     throw new Error(response.statusText);
   }
 
