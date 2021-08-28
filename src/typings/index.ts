@@ -13,6 +13,14 @@ export interface Comment {
   post: IdString;
 }
 
+export interface SummarizedPost {
+  id: string;
+  author: IdString;
+  createdAt: ISODateString;
+  summary: string;
+  title: string;
+}
+
 export interface Post {
   id: string;
   author: IdString;

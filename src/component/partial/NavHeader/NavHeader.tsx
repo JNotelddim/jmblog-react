@@ -14,6 +14,7 @@ import { useLogOut } from 'src/hook/api/auth';
 
 // Selectors + Actions
 import { selectIsAuthenticated } from 'src/redux/user';
+import { Link } from 'react-router-dom';
 
 /**
  * NavHeader is the header bar which appears on all pages whether the user is
@@ -27,7 +28,9 @@ const NavHeader = () => {
   // Render
   return (
     <Container>
-      <Text>JM Blog</Text>
+      <Link to="/">
+        <Text>JM Blog</Text>
+      </Link>
       {isAuthenticated && <Button onClick={handleLogOut}>Log out</Button>}
     </Container>
   );

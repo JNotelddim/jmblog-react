@@ -4,21 +4,21 @@ import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 import { fetch } from 'src/hook/api';
 
 // Serializers
-import { serializePosts } from './post.serializer';
+import { serializePostsResponse } from './post.serializer';
 
 // Types
-import { Post } from 'src/typings';
+import { SummarizedPost } from 'src/typings';
 
 // Exports
 const fetchPostsFn = async () => {
   const response = await fetch('/posts');
-  const serialized = serializePosts(response);
+  const serialized = serializePostsResponse(response);
   return serialized;
 };
 
 export const UsePosts = (
-  options?: UseQueryOptions<Post[]>
-): UseQueryResult<Post[]> => {
+  options?: UseQueryOptions<SummarizedPost[]>
+): UseQueryResult<SummarizedPost[]> => {
   return useQuery('posts', fetchPostsFn, options);
 };
 
