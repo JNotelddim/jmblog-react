@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 
 // Components
 import { Button } from '@material-ui/core';
-import Text from 'src/component/base/Text';
 import TextField from 'src/component/form/TextField';
 
 // Types

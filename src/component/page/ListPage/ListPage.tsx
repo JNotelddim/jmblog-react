@@ -1,9 +1,12 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 // Components
 import CenteredLayout from 'src/component/layout/CenteredLayout';
+import PostCard from 'src/component/partial/PostCard';
+
+// Styles
 import { ListContainer } from './ListPage.style';
 
 // Hooks
@@ -15,6 +18,9 @@ import { usePosts } from 'src/hook/api/posts';
  */
 const ListPage = () => {
   const { data: posts, isLoading, isError } = usePosts({ enabled: true });
+  const history = useHistory();
+
+  const handleCardClick = (postId: string) => history.push(`/post/${postId}`);
 
   return (
     <CenteredLayout>
@@ -25,10 +31,12 @@ const ListPage = () => {
       {isError && <Typography color="error"> Error </Typography>}
       {!isLoading && !isError && posts && (
         <ListContainer>
-          {posts.map(({ id, title }) => (
-            <Link to={`/post/${id}`} key={id}>
-              {title}
-            </Link>
+          {posts.map((post) => (
+            <PostCard
+              key={post.id}
+              post={post}
+              onClick={() => handleCardClick(post.id)}
+            />
           ))}
         </ListContainer>
       )}
