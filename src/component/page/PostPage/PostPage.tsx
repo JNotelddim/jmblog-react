@@ -6,6 +6,7 @@ import Text from 'src/component/base/Text';
 import CenteredLayout from 'src/component/layout/CenteredLayout';
 import PostView from 'src/component/view/PostView';
 import PostEditView from 'src/component/view/PostEditView';
+import PostCreateView from 'src/component/view/PostCreateView';
 
 // Hooks
 import { useLocation, useParams } from 'react-router-dom';
@@ -25,17 +26,22 @@ const PostPage: React.FC = () => {
   const { data: post, isLoading } = usePost(id);
 
   // State
+  const isNew = id === 'new';
   const isEditing = pathname.includes('/edit');
 
   // Render
   return (
     <CenteredLayout>
-      {isLoading && <Text>Loading...</Text>}
-      {!isLoading && post !== undefined && !isEditing && (
-        <PostView post={post} />
-      )}
-      {!isLoading && post !== undefined && isEditing && (
-        <PostEditView post={post} />
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <>
+          {post !== undefined && !isEditing && !isNew && (
+            <PostView post={post} />
+          )}
+          {post !== undefined && isEditing && <PostEditView post={post} />}
+          {isNew && <PostCreateView />}
+        </>
       )}
     </CenteredLayout>
   );

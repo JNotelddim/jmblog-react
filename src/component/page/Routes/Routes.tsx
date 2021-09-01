@@ -41,7 +41,11 @@ const Routes = () => {
           <PostPage />
         </Route>
 
-        <PrivateRoute path="/post/:id/edit">
+        <PrivateRoute path="/post/new" exact>
+          <PostPage />
+        </PrivateRoute>
+
+        <PrivateRoute path="/post/:id/edit" exact>
           <PostPage />
         </PrivateRoute>
       </Switch>

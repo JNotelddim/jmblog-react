@@ -46,6 +46,11 @@ export interface PostEditData {
   content?: string;
 }
 
+export interface PostCreateData {
+  title: string;
+  content: string;
+}
+
 export interface LoginResponse {
   accessToken: string;
 }

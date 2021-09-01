@@ -9,16 +9,14 @@ import { Button } from '@material-ui/core';
 import TextField from 'src/component/form/TextField';
 
 // Types
-import { PostEditData } from 'src/typings';
-import { PostEditViewProps } from './PostEditView.type';
+import { PostCreateData } from 'src/typings';
 
 /**
- * PostEditView is where a user can edit an existing post.
+ * PostCreateView is where the user can write a new blog post.
  */
-const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
-  const { register, handleSubmit, formState } = useForm<PostEditData>({
+const PostCreateView: React.FC = () => {
+  const { register, handleSubmit, formState } = useForm<PostCreateData>({
     mode: 'onBlur',
-    defaultValues: post,
   });
   const { isValid, errors } = formState;
 
@@ -26,7 +24,6 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
     // TODO: useSavePost(formData);
   };
 
-  // TODO: if this user is not the author, then redirect back to the post view page.
   // TODO: wysiwyg?
 
   return (
@@ -51,4 +48,4 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
   );
 };
 
-export default PostEditView;
+export default PostCreateView;
