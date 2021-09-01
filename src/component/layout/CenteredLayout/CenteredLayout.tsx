@@ -12,10 +12,10 @@ import { Base } from './CenteredLayout.style';
  * centered layout between pages.
  */
 const CenteredLayout: React.FC = ({ children }) => (
-  <div>
+  <>
     <NavHeader />
     <Base>{children}</Base>
-  </div>
+  </>
 );
 
 export default CenteredLayout;

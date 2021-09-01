@@ -1,16 +1,20 @@
 // Modules
 import React from 'react';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 // Hooks
 import { useForm } from 'react-hook-form';
 
 // Components
 import { Button } from '@material-ui/core';
-import TextField from 'src/component/form/TextField';
+import { Editor } from 'react-draft-wysiwyg';
+import { Form, TextField, FormFooter } from './PostCreateView.style';
 
 // Types
 import { PostCreateData } from 'src/typings';
 
+// TODO: consider condensing this in with the Edit view if the typings
+// on the submit hooks allows it.
 /**
  * PostCreateView is where the user can write a new blog post.
  */
@@ -27,24 +31,22 @@ const PostCreateView: React.FC = () => {
   // TODO: wysiwyg?
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <TextField
         label="Title"
         inputProps={{ ...register('title', { required: true }) }}
         errorType={errors?.title}
       />
 
-      <TextField
-        label="Content"
-        inputProps={{ ...register('content', { required: true }) }}
-        errorType={errors?.content}
-      />
+      <Editor {...register('content', { required: true })} />
 
-      <Button>Cancel</Button>
-      <Button type="submit" disabled={!isValid}>
-        Save
-      </Button>
-    </form>
+      <FormFooter>
+        <Button>Cancel</Button>
+        <Button type="submit" disabled={!isValid}>
+          Save
+        </Button>
+      </FormFooter>
+    </Form>
   );
 };
 
