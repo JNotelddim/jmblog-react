@@ -37,7 +37,7 @@ const Routes = () => {
           <ListPage />
         </Route>
 
-        <Route path="/post/:id">
+        <Route path="/post/:id" exact>
           <PostPage />
         </Route>
 

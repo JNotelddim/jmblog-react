@@ -1,8 +1,16 @@
 // Modules
+import { Button } from '@material-ui/core';
 import React from 'react';
 
 // Components
 import Text from 'src/component/base/Text';
+
+// Hooks
+import { useProfile } from 'src/hook/api/user';
+import { useAppSelector } from 'src/hook/redux';
+
+// Selectors
+import { selectIsAuthenticated } from 'src/redux';
 
 // Types
 import { PostViewProps } from './PostView.type';
@@ -12,8 +20,15 @@ import { PostViewProps } from './PostView.type';
  */
 const PostView: React.FC<PostViewProps> = ({ post }) => {
   const { title, author, createdAt, content } = post;
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const { data: profile } = useProfile({ enabled: isAuthenticated });
+  const { id } = profile || {};
 
-  // TODO: if authenticated && author == this user, then show Edit button.
+  const handleEditClick = () => {
+    // TODO: append /edit to end of url
+  };
+
+  // console.log({ isAuthenticated, id, author });
 
   return (
     <>
@@ -22,6 +37,9 @@ const PostView: React.FC<PostViewProps> = ({ post }) => {
         - {author}, {createdAt}
       </Text>
       <Text variant="body1">{content}</Text>
+      {isAuthenticated && id === author && (
+        <Button onClick={handleEditClick}>Edit</Button>
+      )}
     </>
   );
 };
