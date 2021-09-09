@@ -1,7 +1,8 @@
 import React, { useState, FC, forwardRef } from 'react';
+import { stateToMarkdown } from 'draft-js-export-markdown';
 
 // Components
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -11,17 +12,12 @@ import { WYSIWYGProps } from './WYSIWYGEditor.type';
 const WYSIWYGEditor: FC<WYSIWYGProps> = forwardRef((props, ref) => {
   const { onChange, className } = props;
   // TODO use value prop to initialize value in editing form
+  // see: EditorState.getCurrentContent() => ContentState.createFromText() ?
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const onEditorStateChange = (editorState: EditorState) => {
     setEditorState(editorState);
-    console.log(
-      'onchange,',
-      editorState.toJS(),
-      // TODO: convert to text
-      convertToRaw(editorState.getCurrentContent())
-    );
-    return onChange(convertToRaw(editorState.getCurrentContent()));
+    return onChange(stateToMarkdown(editorState.getCurrentContent()));
   };
 
   return (
