@@ -1,17 +1,16 @@
 // Modules
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 // Hooks
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 // Components
 import { Button } from '@material-ui/core';
-import { Editor } from 'react-draft-wysiwyg';
-import { Form, TextField, FormFooter } from './PostCreateView.style';
+import Text from 'src/component/base/Text';
+import { Form, TextField, FormFooter, Editor } from './PostCreateView.style';
 
-// Types + Classes
-import { EditorState } from 'draft-js';
+// Types
 import { PostCreateData } from 'src/typings';
 
 // TODO: consider condensing this in with the Edit view if the typings
@@ -20,23 +19,16 @@ import { PostCreateData } from 'src/typings';
  * PostCreateView is where the user can write a new blog post.
  */
 const PostCreateView: React.FC = () => {
-  const { register, handleSubmit, formState } = useForm<PostCreateData>({
-    mode: 'onBlur',
-  });
+  const { register, handleSubmit, formState, control } =
+    useForm<PostCreateData>({
+      mode: 'onBlur',
+    });
   const { isValid, errors } = formState;
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const editorRef = useRef(null);
 
-  const onSubmit = () => {
+  const onSubmit = (formData: PostCreateData) => {
+    console.log({ formData });
     // TODO: useSavePost(formData);
   };
-
-  const onEditorChange = (stateUpdate: EditorState) => {
-    setEditorState(stateUpdate);
-  };
-
-  // TODO: wysiwyg?
-  // TODO: fix wysiwyg connection: https://stackoverflow.com/questions/62176047/react-hook-form-controller-with-react-draft-wysiwyg
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -46,13 +38,18 @@ const PostCreateView: React.FC = () => {
         errorType={errors?.title}
       />
 
-      <Editor
-        ref={editorRef}
-        editorState={editorState}
-        onEditorStateChange={onEditorChange}
-        wrapperClassName="test-wrapper"
-        editorClassName="test-editor"
-        // {...register('content', { required: true })}
+      <Text variant="h6" mt={3}>
+        Content
+      </Text>
+      <Controller
+        name="content"
+        control={control}
+        rules={{ required: true }}
+        // TODO: add validation logic
+        // TODO: ref?
+        render={({ field: { onBlur, onChange, value } }) => (
+          <Editor onBlur={onBlur} onChange={onChange} value={value} />
+        )}
       />
 
       <FormFooter>
