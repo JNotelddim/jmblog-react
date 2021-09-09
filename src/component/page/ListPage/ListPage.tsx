@@ -32,7 +32,7 @@ const ListPage = () => {
   return (
     <CenteredLayout>
       <Typography color="primary" variant="h1" gutterBottom>
-        ListPage
+        Posts
       </Typography>
       {isLoading && <Typography color="secondary"> Loading </Typography>}
       {isError && <Typography color="error"> Error </Typography>}
