@@ -1,54 +1,64 @@
 // Modules
 import React from 'react';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 // Hooks
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 // Components
 import { Button } from '@material-ui/core';
-import TextField from 'src/component/form/TextField';
+import Text from 'src/component/base/Text';
+import { Form, TextField, FormFooter, Editor } from './PostEditView.style';
 
 // Types
-import { PostEditData } from 'src/typings';
+import { PostCreateData } from 'src/typings';
 import { PostEditViewProps } from './PostEditView.type';
 
 /**
- * PostEditView is where a user can edit an existing post.
+ * PostCreateView is where the user can write a new blog post.
  */
-const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
-  const { register, handleSubmit, formState } = useForm<PostEditData>({
-    mode: 'onBlur',
-    defaultValues: post,
-  });
+const PostCreateView: React.FC<PostEditViewProps> = ({ post }) => {
+  const { register, handleSubmit, formState, control } =
+    useForm<PostCreateData>({
+      mode: 'onBlur',
+    });
   const { isValid, errors } = formState;
 
-  const onSubmit = () => {
+  const onSubmit = (formData: PostCreateData) => {
+    console.log({ formData });
     // TODO: useSavePost(formData);
   };
 
-  // TODO: if this user is not the author, then redirect back to the post view page.
-  // TODO: wysiwyg?
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <TextField
         label="Title"
         inputProps={{ ...register('title', { required: true }) }}
         errorType={errors?.title}
       />
 
-      <TextField
-        label="Content"
-        inputProps={{ ...register('content', { required: true }) }}
-        errorType={errors?.content}
+      <Text variant="h6" mt={3}>
+        Content
+      </Text>
+      <Controller
+        name="content"
+        control={control}
+        rules={{ required: true }}
+        // TODO: add validation logic
+        // TODO: ref?
+        render={({ field: { onBlur, onChange, value } }) => (
+          <Editor onBlur={onBlur} onChange={onChange} value={value} />
+        )}
       />
 
-      <Button>Cancel</Button>
-      <Button type="submit" disabled={!isValid}>
-        Save
-      </Button>
-    </form>
+      <FormFooter>
+        <Button>Cancel</Button>
+        <Button type="submit" disabled={!isValid}>
+          Save
+        </Button>
+      </FormFooter>
+    </Form>
   );
 };
 
-export default PostEditView;
+export default PostCreateView;

@@ -28,7 +28,7 @@ const PostView: React.FC<PostViewProps> = ({ post }) => {
     // TODO: append /edit to end of url
   };
 
-  // console.log({ isAuthenticated, id, author });
+  // TODO: render content as markdown
 
   return (
     <>

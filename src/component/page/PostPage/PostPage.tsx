@@ -6,7 +6,6 @@ import Text from 'src/component/base/Text';
 import CenteredLayout from 'src/component/layout/CenteredLayout';
 import PostView from 'src/component/view/PostView';
 import PostEditView from 'src/component/view/PostEditView';
-import PostCreateView from 'src/component/view/PostCreateView';
 
 // Hooks
 import { useLocation, useParams } from 'react-router-dom';
@@ -39,8 +38,7 @@ const PostPage: React.FC = () => {
           {post !== undefined && !isEditing && !isNew && (
             <PostView post={post} />
           )}
-          {post !== undefined && isEditing && <PostEditView post={post} />}
-          {isNew && <PostCreateView />}
+          {(isEditing || isNew) && <PostEditView post={post} />}
         </>
       )}
     </CenteredLayout>
