@@ -11,22 +11,27 @@ import Text from 'src/component/base/Text';
 import { Form, TextField, FormFooter, Editor } from './PostEditView.style';
 
 // Types
-import { PostCreateData } from 'src/typings';
+import { PostFormData } from 'src/typings';
 import { PostEditViewProps } from './PostEditView.type';
+import { usePutPost } from 'src/hook/api/posts';
 
 /**
- * PostCreateView is where the user can write a new blog post.
+ * PostCreateView is where the user can write a new blog post or edit an existing one
  */
 const PostCreateView: React.FC<PostEditViewProps> = ({ post }) => {
-  const { register, handleSubmit, formState, control } =
-    useForm<PostCreateData>({
-      mode: 'onBlur',
-    });
+  const { register, handleSubmit, formState, control } = useForm<PostFormData>({
+    mode: 'onBlur',
+  });
   const { isValid, errors } = formState;
+  const { mutate: putPost } = usePutPost({
+    onSuccess: () => {
+      // TODO: redirect to 'read' view.
+    },
+  });
 
-  const onSubmit = (formData: PostCreateData) => {
-    console.log({ formData });
-    // TODO: useSavePost(formData);
+  const onSubmit = (formData: PostFormData) => {
+    console.log({ post, formData });
+    putPost({ ...formData, id: post?.id || undefined });
   };
 
   return (
@@ -43,8 +48,14 @@ const PostCreateView: React.FC<PostEditViewProps> = ({ post }) => {
       <Controller
         name="content"
         control={control}
-        rules={{ required: true }}
-        // TODO: add validation logic
+        // TODO: why doesn't 'touched' update for this field?
+        rules={{
+          required: true,
+          validate: (value: string) => {
+            // TODO: add validation logic
+            return value !== '';
+          },
+        }}
         // TODO: ref?
         render={({ field: { onBlur, onChange, value } }) => (
           <Editor onBlur={onBlur} onChange={onChange} value={value} />

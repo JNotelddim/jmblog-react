@@ -39,14 +39,9 @@ export interface SignupFormData extends LoginFormData {
   username?: string;
   passwordConfirmation: string;
 }
-export interface PostEditData {
-  id: string;
-  modifiedAt: string;
-  title?: string;
-  content?: string;
-}
 
-export interface PostCreateData {
+export interface PostFormData {
+  id?: string;
   title: string;
   content: string;
 }
