@@ -22,10 +22,8 @@ const PostPage: React.FC = () => {
   // Hooks
   const { id } = useParams<PostRouteParams>();
   const { pathname } = useLocation();
-  const { data: post, isLoading } = usePost(id);
-
-  // State
   const isNew = id === 'new';
+  const { data: post, isLoading } = usePost(id, { enabled: !isNew });
   const isEditing = pathname.includes('/edit');
 
   // Render
