@@ -4,6 +4,8 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 // Hooks
 import { Controller, useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
+import { usePutPost } from 'src/hook/api/posts';
 
 // Components
 import { Button } from '@material-ui/core';
@@ -13,25 +15,38 @@ import { Form, TextField, FormFooter, Editor } from './PostEditView.style';
 // Types
 import { PostFormData } from 'src/typings';
 import { PostEditViewProps } from './PostEditView.type';
-import { usePutPost } from 'src/hook/api/posts';
 
 /**
- * PostCreateView is where the user can write a new blog post or edit an existing one
+ * PostEditView is where the user can write a new blog post or edit an existing one
  */
-const PostCreateView: React.FC<PostEditViewProps> = ({ post }) => {
+const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
+  // Hooks
+  const history = useHistory();
   const { register, handleSubmit, formState, control } = useForm<PostFormData>({
     mode: 'onBlur',
+    defaultValues: post,
   });
-  const { isValid, errors } = formState;
   const { mutate: putPost } = usePutPost({
     onSuccess: () => {
       // TODO: redirect to 'read' view.
     },
   });
 
+  // State
+  const { isValid, errors } = formState;
+
+  // Handlers
   const onSubmit = (formData: PostFormData) => {
-    console.log({ post, formData });
     putPost({ ...formData, id: post?.id || undefined });
+  };
+
+  const handleCancel = () => {
+    if (post !== undefined) {
+      const pathLessEdit = history.location.pathname.replace(/\/edit/, '');
+      history.push(pathLessEdit);
+    } else {
+      history.push('/');
+    }
   };
 
   return (
@@ -48,7 +63,7 @@ const PostCreateView: React.FC<PostEditViewProps> = ({ post }) => {
       <Controller
         name="content"
         control={control}
-        // TODO: why doesn't 'touched' update for this field?
+        // TODO: why doesn't 'touched' update for this field? onBlur?
         rules={{
           required: true,
           validate: (value: string) => {
@@ -63,7 +78,7 @@ const PostCreateView: React.FC<PostEditViewProps> = ({ post }) => {
       />
 
       <FormFooter>
-        <Button>Cancel</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
         <Button type="submit" disabled={!isValid}>
           Save
         </Button>
@@ -72,4 +87,4 @@ const PostCreateView: React.FC<PostEditViewProps> = ({ post }) => {
   );
 };
 
-export default PostCreateView;
+export default PostEditView;

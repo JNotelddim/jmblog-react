@@ -1,6 +1,7 @@
 // Modules
 import { Button } from '@material-ui/core';
 import React from 'react';
+import { useHistory } from 'react-router';
 
 // Components
 import Text from 'src/component/base/Text';
@@ -19,13 +20,18 @@ import { PostViewProps } from './PostView.type';
  * PostView handles rendering a post for reading
  */
 const PostView: React.FC<PostViewProps> = ({ post }) => {
-  const { title, author, createdAt, content } = post;
+  // Hooks
+  const history = useHistory();
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const { data: profile } = useProfile({ enabled: isAuthenticated });
+
+  // State
+  const { title, author, createdAt, content } = post;
   const { id } = profile || {};
 
+  // Handlers
   const handleEditClick = () => {
-    // TODO: append /edit to end of url
+    history.push(history.location.pathname + '/edit');
   };
 
   // TODO: render content as markdown
