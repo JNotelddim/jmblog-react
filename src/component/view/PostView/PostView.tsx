@@ -4,6 +4,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 
 // Components
+import ReactMarkdown from 'react-markdown';
 import Text from 'src/component/base/Text';
 
 // Hooks
@@ -34,15 +35,14 @@ const PostView: React.FC<PostViewProps> = ({ post }) => {
     history.push(history.location.pathname + '/edit');
   };
 
-  // TODO: render content as markdown
-
   return (
     <>
       <Text variant="h2">{title}</Text>
       <Text variant="subtitle1">
         - {author}, {createdAt}
       </Text>
-      <Text variant="body1">{content}</Text>
+      <ReactMarkdown children={content} />
+
       {isAuthenticated && id === author && (
         <Button onClick={handleEditClick}>Edit</Button>
       )}
