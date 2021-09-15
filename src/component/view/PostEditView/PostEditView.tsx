@@ -28,7 +28,7 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
   });
   const { mutate: putPost } = usePutPost({
     onSuccess: () => {
-      // TODO: redirect to 'read' view.
+      redirectFromEditView();
     },
   });
 
@@ -39,8 +39,10 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
   const onSubmit = (formData: PostFormData) => {
     putPost({ ...formData, id: post?.id || undefined });
   };
-
   const handleCancel = () => {
+    redirectFromEditView();
+  };
+  const redirectFromEditView = () => {
     if (post !== undefined) {
       const pathLessEdit = history.location.pathname.replace(/\/edit/, '');
       history.push(pathLessEdit);

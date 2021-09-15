@@ -41,6 +41,7 @@ const PostView: React.FC<PostViewProps> = ({ post }) => {
       <Text variant="subtitle1">
         - {author}, {createdAt}
       </Text>
+      {/* TODO: fix sizing on images w/ custom renderer? or a remark plugin? */}
       <ReactMarkdown children={content} />
 
       {isAuthenticated && id === author && (
