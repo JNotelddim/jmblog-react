@@ -21,9 +21,13 @@ const PostSubheading = ({ authorId, createdAt }: SubheadingProps) => {
   const hasName = firstName || lastName;
 
   return isLoading || isError ? null : (
-    <Text variant="subtitle1">
-      <Text>{hasName ? `${firstName} ${lastName}` : email}</Text>{' '}
-      {new Date(createdAt).toDateString()}
+    <Text variant="subtitle1" color="textSecondary">
+      written by{' '}
+      <Text component="span">
+        {hasName ? `${firstName} ${lastName}` : email}
+      </Text>
+      {' on '}
+      <Text component="span">{new Date(createdAt).toDateString()}</Text>
     </Text>
   );
 };
