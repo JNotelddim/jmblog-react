@@ -14,6 +14,9 @@ export type UserActionTypes = LoginUserAction | LogoutUserAction;
 export interface User {
   username: string;
   email: string;
+  firstName: string;
+  lastName: string;
+  createdAt: string;
   id: string;
 }
 

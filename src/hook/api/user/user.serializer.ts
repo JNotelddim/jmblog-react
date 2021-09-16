@@ -5,6 +5,9 @@ const serializeFn = (item: Record<string, unknown>): User => {
     email: item.email as string,
     id: item.id as string,
     username: item.username as string,
+    firstName: item.firstName as string,
+    lastName: item.lastName as string,
+    createdAt: item.createdAt as string,
   };
 };
 

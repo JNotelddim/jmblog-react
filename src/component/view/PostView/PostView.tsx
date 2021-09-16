@@ -6,6 +6,7 @@ import { useHistory } from 'react-router';
 // Components
 import ReactMarkdown from 'react-markdown';
 import Text from 'src/component/base/Text';
+import PostSubheading from './PostSubheading';
 
 // Hooks
 import { useProfile } from 'src/hook/api/user';
@@ -38,9 +39,7 @@ const PostView: React.FC<PostViewProps> = ({ post }) => {
   return (
     <>
       <Text variant="h2">{title}</Text>
-      <Text variant="subtitle1">
-        - {author}, {createdAt}
-      </Text>
+      <PostSubheading authorId={author} createdAt={createdAt} />
       {/* TODO: fix sizing on images w/ custom renderer? or a remark plugin? */}
       <ReactMarkdown children={content} />
 

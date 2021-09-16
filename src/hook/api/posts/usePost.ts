@@ -17,7 +17,7 @@ import { Post } from 'src/typings';
 
 // Exports
 const fetchPostFn = async (context: QueryFunctionContext<QueryKey>) => {
-  const id = context.queryKey[1]; // See line 24
+  const id = context.queryKey[1]; // this comes from the `['post', id]` array on line 30
   const response = await fetch(`/posts/${id}`);
   const serialized = serializePostResponse(response);
   return serialized;
