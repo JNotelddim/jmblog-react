@@ -53,6 +53,7 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
+      {/* TODO: add 'delete button' */}
       <TextField
         label="Title"
         inputProps={{ ...register('title', { required: true }) }}

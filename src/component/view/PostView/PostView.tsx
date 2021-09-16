@@ -43,6 +43,7 @@ const PostView: React.FC<PostViewProps> = ({ post }) => {
       {/* TODO: fix sizing on images w/ custom renderer? or a remark plugin? */}
       <ReactMarkdown children={content} />
 
+      {/* TODO: move edit button to above post */}
       {isAuthenticated && id === author && (
         <Button onClick={handleEditClick}>Edit</Button>
       )}
