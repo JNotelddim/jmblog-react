@@ -1,10 +1,14 @@
 import { EditorState, convertFromRaw } from 'draft-js';
 
-const UseParseJsonDraftState = (value: string) => {
+export const handleParseJsonDraftState = (value: string) => {
+  const parsed = JSON.parse(value);
+  const fromRaw = convertFromRaw(parsed);
+  return EditorState.createWithContent(fromRaw);
+};
+
+const UseParseJsonDraftState = (value?: string) => {
   if (value) {
-    const parsed = JSON.parse(value);
-    const fromRaw = convertFromRaw(parsed);
-    return EditorState.createWithContent(fromRaw);
+    return handleParseJsonDraftState(value);
   } else {
     return null;
   }

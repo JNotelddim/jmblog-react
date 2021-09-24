@@ -15,6 +15,7 @@ import { Form, TextField, FormFooter, Editor } from './PostEditView.style';
 // Types
 import { PostFormData } from 'src/typings';
 import { PostEditViewProps } from './PostEditView.type';
+import { handleParseJsonDraftState } from 'src/hook/effect';
 
 /**
  * PostEditView is where the user can write a new blog post or edit an existing one
@@ -37,12 +38,20 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
   const { isValid, errors } = formState;
 
   // Handlers
+  // note that this is not 'handleSubmit' because that name is taken
   const onSubmit = (formData: PostFormData) => {
-    putPost({ ...formData, id: post?.id || undefined });
+    const state = handleParseJsonDraftState(formData.content);
+    const contentText = state.getCurrentContent().getPlainText();
+    const summary = `${contentText.slice(0, 80)}${
+      contentText.length > 80 ? '...' : ''
+    }`;
+    putPost({ ...formData, summary, id: post?.id || undefined });
   };
+
   const handleCancel = () => {
     redirectFromEditView();
   };
+
   const redirectFromEditView = () => {
     if (post !== undefined) {
       const pathLessEdit = history.location.pathname.replace(/\/edit/, '');

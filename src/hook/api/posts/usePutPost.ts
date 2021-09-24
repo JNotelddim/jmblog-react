@@ -2,10 +2,10 @@ import { useMutation, UseMutationOptions } from 'react-query';
 
 import { fetch } from 'src/hook/api';
 
-import { Post, PostFormData } from 'src/typings';
+import { Post, PostSubmitData } from 'src/typings';
 import { serializePostResponse } from './post.serializer';
 
-const putPostFn = async (formData: PostFormData) => {
+const putPostFn = async (formData: PostSubmitData) => {
   const res = await fetch(`/posts`, {
     method: 'PUT',
     body: JSON.stringify(formData),
@@ -14,7 +14,7 @@ const putPostFn = async (formData: PostFormData) => {
 };
 
 export const UsePutPost = (
-  options?: UseMutationOptions<Post, unknown, PostFormData>
+  options?: UseMutationOptions<Post, unknown, PostSubmitData>
 ) => {
   return useMutation(putPostFn, options);
 };
