@@ -13,24 +13,6 @@ export interface Comment {
   post: IdString;
 }
 
-export interface SummarizedPost {
-  id: string;
-  author: IdString;
-  createdAt: ISODateString;
-  summary: string;
-  title: string;
-}
-
-export interface Post {
-  id: string;
-  author: IdString;
-  content: string;
-  createdAt: ISODateString;
-  comments: Array<IdString>;
-  modifiedAt: ISODateString;
-  title: string;
-}
-
 export interface SuccessIndication {
   success: boolean;
 }
@@ -44,15 +26,10 @@ export interface SignupFormData extends LoginFormData {
   passwordConfirmation: string;
 }
 
-export interface PostFormData {
-  id?: string;
-  title: string;
-  content: string;
-}
-
 export interface LoginResponse {
   accessToken: string;
 }
 
+export * from './post';
 export * from './user';
 export * from './redux';
