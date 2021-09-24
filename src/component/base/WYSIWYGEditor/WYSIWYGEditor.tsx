@@ -24,7 +24,7 @@ const WYSIWYGEditor: FC<WYSIWYGProps> = forwardRef((props, ref) => {
   const handledVal = useParseJsonDraftState(value);
   // Initialize state while handling case where there was no stored state coming in
   const [editorState, setEditorState] = useState(
-    handledVal || Editor.createEmpty()
+    handledVal || EditorState.createEmpty()
   );
 
   const onEditorStateChange = (editorState: EditorState) => {
