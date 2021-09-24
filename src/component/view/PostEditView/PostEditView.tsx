@@ -7,7 +7,8 @@ import { useHistory } from 'react-router';
 import { usePutPost } from 'src/hook/api/posts';
 
 // Components
-import { Button } from '@material-ui/core';
+import { Box, Button, IconButton } from '@material-ui/core';
+import { DeleteForever } from '@material-ui/icons';
 import Text from 'src/component/base/Text';
 import { Form, TextField, FormFooter, Editor } from './PostEditView.style';
 
@@ -49,15 +50,32 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
       history.push('/');
     }
   };
+  const handleDeleteClick = () => {
+    // TODO: add post delete hook
+    alert('delete');
+  };
 
+  // Render
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      {/* TODO: add 'delete button' */}
-      <TextField
-        label="Title"
-        inputProps={{ ...register('title', { required: true }) }}
-        errorType={errors?.title}
-      />
+      <Box
+        display="flex"
+        flexDirection="row"
+        alignItems="flex-end"
+        justifyContent="space-between"
+      >
+        <div>
+          <TextField
+            label="Title"
+            inputProps={{ ...register('title', { required: true }) }}
+            errorType={errors?.title}
+          />
+        </div>
+
+        <IconButton onClick={handleDeleteClick}>
+          <DeleteForever />
+        </IconButton>
+      </Box>
 
       <Text variant="h6" mt={3}>
         Content
