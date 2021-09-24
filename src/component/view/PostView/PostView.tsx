@@ -3,10 +3,11 @@ import React from 'react';
 import { stateToMarkdown } from 'draft-js-export-markdown';
 
 // Components
-import { Button } from '@material-ui/core';
+import { Box, IconButton } from '@material-ui/core';
 import ReactMarkdown from 'react-markdown';
 import Text from 'src/component/base/Text';
 import PostSubheading from './PostSubheading';
+import { Edit } from '@material-ui/icons';
 
 // Hooks
 import { useHistory } from 'react-router';
@@ -47,14 +48,19 @@ const PostView: React.FC<PostViewProps> = ({ post }) => {
   return (
     <>
       <Text variant="h2">{title}</Text>
-      <PostSubheading authorId={author} createdAt={createdAt} />
+      <Box display="flex" flexDirection="row" justifyContent="space-between">
+        <PostSubheading authorId={author} createdAt={createdAt} />
+
+        {/* TODO: move edit button to above post */}
+        {isAuthenticated && id === author && (
+          <IconButton onClick={handleEditClick}>
+            <Edit />
+          </IconButton>
+        )}
+      </Box>
+
       {/* TODO: fix sizing on images w/ custom renderer? or a remark plugin? */}
       <ReactMarkdown children={markdown} />
-
-      {/* TODO: move edit button to above post */}
-      {isAuthenticated && id === author && (
-        <Button onClick={handleEditClick}>Edit</Button>
-      )}
     </>
   );
 };
