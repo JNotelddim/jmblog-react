@@ -1,6 +1,5 @@
 // Modules
 import React from 'react';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 // Hooks
 import { Controller, useForm } from 'react-hook-form';
@@ -70,7 +69,6 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
         rules={{
           required: true,
           validate: (value: string) => {
-            // TODO: add validation logic
             return value !== '';
           },
         }}

@@ -1,18 +1,18 @@
 // Modules
-import { Button } from '@material-ui/core';
 import React from 'react';
-import { convertFromRaw, EditorState } from 'draft-js';
 import { stateToMarkdown } from 'draft-js-export-markdown';
-import { useHistory } from 'react-router';
 
 // Components
+import { Button } from '@material-ui/core';
 import ReactMarkdown from 'react-markdown';
 import Text from 'src/component/base/Text';
 import PostSubheading from './PostSubheading';
 
 // Hooks
+import { useHistory } from 'react-router';
 import { useProfile } from 'src/hook/api/user';
 import { useAppSelector } from 'src/hook/redux';
+import { useParseJsonDraftState } from 'src/hook/effect';
 
 // Selectors
 import { selectIsAuthenticated } from 'src/redux';
@@ -34,11 +34,9 @@ const PostView: React.FC<PostViewProps> = ({ post }) => {
   const { id } = profile || {};
 
   let markdown = '';
-  if (content) {
-    const parsed = JSON.parse(content);
-    const fromRaw = convertFromRaw(parsed);
-    const result = EditorState.createWithContent(fromRaw);
-    markdown = stateToMarkdown(result.getCurrentContent());
+  const restoredState = useParseJsonDraftState(content);
+  if (restoredState) {
+    markdown = stateToMarkdown(restoredState.getCurrentContent());
   }
 
   // Handlers
