@@ -5,7 +5,7 @@ import { fetch } from 'src/hook/api';
 import { Post, PostFormData } from 'src/typings';
 import { serializePostResponse } from './post.serializer';
 
-const loginFn = async (formData: PostFormData) => {
+const putPostFn = async (formData: PostFormData) => {
   const res = await fetch(`/posts`, {
     method: 'PUT',
     body: JSON.stringify(formData),
@@ -13,10 +13,10 @@ const loginFn = async (formData: PostFormData) => {
   return await serializePostResponse(res);
 };
 
-export const UseLogin = (
+export const UsePutPost = (
   options?: UseMutationOptions<Post, unknown, PostFormData>
 ) => {
-  return useMutation(loginFn, options);
+  return useMutation(putPostFn, options);
 };
 
-export default UseLogin;
+export default UsePutPost;
