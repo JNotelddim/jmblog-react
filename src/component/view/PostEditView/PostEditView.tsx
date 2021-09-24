@@ -4,7 +4,7 @@ import React from 'react';
 // Hooks
 import { Controller, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import { usePutPost } from 'src/hook/api/posts';
+import { usePutPost, useDeletePost } from 'src/hook/api/posts';
 
 // Components
 import { Box, Button, IconButton } from '@material-ui/core';
@@ -26,6 +26,7 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
     mode: 'onBlur',
     defaultValues: post,
   });
+  const { mutate: deletePost } = useDeletePost();
   const { mutate: putPost } = usePutPost({
     onSuccess: () => {
       redirectFromEditView();
@@ -51,8 +52,15 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
     }
   };
   const handleDeleteClick = () => {
-    // TODO: add post delete hook
-    alert('delete');
+    // TODO: don't use 'confirm' once you've got a better alternative.
+    // eslint-disable-next-line no-restricted-globals
+    const result = confirm(
+      'Are you sure you want to delete this post?'
+    ).valueOf();
+    if (result && post) {
+      deletePost(post);
+      history.push('/');
+    }
   };
 
   // Render
@@ -72,9 +80,11 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
           />
         </div>
 
-        <IconButton onClick={handleDeleteClick}>
-          <DeleteForever />
-        </IconButton>
+        {post && post.id && (
+          <IconButton onClick={handleDeleteClick}>
+            <DeleteForever />
+          </IconButton>
+        )}
       </Box>
 
       <Text variant="h6" mt={3}>

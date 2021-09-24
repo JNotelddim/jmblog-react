@@ -31,6 +31,10 @@ export interface Post {
   title: string;
 }
 
+export interface SuccessIndication {
+  success: boolean;
+}
+
 export interface LoginFormData {
   email: string;
   password: string;
