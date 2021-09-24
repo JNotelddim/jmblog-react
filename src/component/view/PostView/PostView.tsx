@@ -1,6 +1,8 @@
 // Modules
 import { Button } from '@material-ui/core';
 import React from 'react';
+import { convertFromRaw, EditorState } from 'draft-js';
+import { stateToMarkdown } from 'draft-js-export-markdown';
 import { useHistory } from 'react-router';
 
 // Components
@@ -31,6 +33,14 @@ const PostView: React.FC<PostViewProps> = ({ post }) => {
   const { title, author, createdAt, content } = post;
   const { id } = profile || {};
 
+  let markdown = '';
+  if (content) {
+    const parsed = JSON.parse(content);
+    const fromRaw = convertFromRaw(parsed);
+    const result = EditorState.createWithContent(fromRaw);
+    markdown = stateToMarkdown(result.getCurrentContent());
+  }
+
   // Handlers
   const handleEditClick = () => {
     history.push(history.location.pathname + '/edit');
@@ -41,7 +51,7 @@ const PostView: React.FC<PostViewProps> = ({ post }) => {
       <Text variant="h2">{title}</Text>
       <PostSubheading authorId={author} createdAt={createdAt} />
       {/* TODO: fix sizing on images w/ custom renderer? or a remark plugin? */}
-      <ReactMarkdown children={content} />
+      <ReactMarkdown children={markdown} />
 
       {/* TODO: move edit button to above post */}
       {isAuthenticated && id === author && (

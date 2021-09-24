@@ -1,8 +1,8 @@
 import React, { useState, FC, forwardRef } from 'react';
-import { stateToMarkdown } from 'draft-js-export-markdown';
+// import { stateToMarkdown } from 'draft-js-export-markdown';
 
 // Components
-import { ContentState, EditorState } from 'draft-js';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -12,14 +12,23 @@ import { WYSIWYGProps } from './WYSIWYGEditor.type';
 const WYSIWYGEditor: FC<WYSIWYGProps> = forwardRef((props, ref) => {
   const { onChange, className, value } = props;
 
-  // TODO: instead of just 'createFromText', convert text to blocks, and apply correct 'type'
-  const [editorState, setEditorState] = useState(
-    EditorState.createWithContent(ContentState.createFromText(value))
-  );
+  let basis;
+  if (value) {
+    const parsed = JSON.parse(value);
+    const fromRaw = convertFromRaw(parsed);
+    const result = EditorState.createWithContent(fromRaw);
+    basis = result;
+  } else {
+    basis = EditorState.createEmpty();
+  }
+  const [editorState, setEditorState] = useState(basis);
 
   const onEditorStateChange = (editorState: EditorState) => {
     setEditorState(editorState);
-    return onChange(stateToMarkdown(editorState.getCurrentContent()));
+
+    return onChange(
+      JSON.stringify(convertToRaw(editorState.getCurrentContent()))
+    );
   };
 
   return (
