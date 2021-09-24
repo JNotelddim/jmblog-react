@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 // Pages
 import LoginPage from 'src/component/page/LoginPage';
 import SignupPage from 'src/component/page/SignupPage';
 import ListPage from 'src/component/page/ListPage';
+import PostPage from 'src/component/page/PostPage';
 
 // Components
 import PrivateRoute from './PrivateRoute';
@@ -32,8 +33,20 @@ const Routes = () => {
           <SignupPage />
         </UnauthenticatedRoute>
 
-        <PrivateRoute path={['/', 'list']} exact>
+        <Route path={['/', '/list']} exact>
           <ListPage />
+        </Route>
+
+        <Route path="/post/:id" exact>
+          <PostPage />
+        </Route>
+
+        <PrivateRoute path="/post/new" exact>
+          <PostPage />
+        </PrivateRoute>
+
+        <PrivateRoute path="/post/:id/edit" exact>
+          <PostPage />
         </PrivateRoute>
       </Switch>
     </BrowserRouter>

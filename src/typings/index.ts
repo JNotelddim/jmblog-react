@@ -13,6 +13,14 @@ export interface Comment {
   post: IdString;
 }
 
+export interface SummarizedPost {
+  id: string;
+  author: IdString;
+  createdAt: ISODateString;
+  summary: string;
+  title: string;
+}
+
 export interface Post {
   id: string;
   author: IdString;
@@ -23,6 +31,10 @@ export interface Post {
   title: string;
 }
 
+export interface SuccessIndication {
+  success: boolean;
+}
+
 export interface LoginFormData {
   email: string;
   password: string;
@@ -30,6 +42,12 @@ export interface LoginFormData {
 export interface SignupFormData extends LoginFormData {
   username?: string;
   passwordConfirmation: string;
+}
+
+export interface PostFormData {
+  id?: string;
+  title: string;
+  content: string;
 }
 
 export interface LoginResponse {

@@ -1,5 +1,6 @@
 // Modules
 import React from 'react';
+import { useHistory, Link } from 'react-router-dom';
 
 // Components
 import { Button } from '@material-ui/core';
@@ -22,13 +23,26 @@ import { selectIsAuthenticated } from 'src/redux/user';
 const NavHeader = () => {
   // Hooks
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const history = useHistory();
   const { handleLogOut } = useLogOut();
+
+  const isOnLoginPage = history.location.pathname === '/login';
+
+  // Handlers
+  const handleLogin = () => {
+    history.push('/login');
+  };
 
   // Render
   return (
     <Container>
-      <Text>JM Blog</Text>
+      <Link to="/">
+        <Text>JM Blog</Text>
+      </Link>
       {isAuthenticated && <Button onClick={handleLogOut}>Log out</Button>}
+      {!isAuthenticated && !isOnLoginPage && (
+        <Button onClick={handleLogin}>Log in</Button>
+      )}
     </Container>
   );
 };

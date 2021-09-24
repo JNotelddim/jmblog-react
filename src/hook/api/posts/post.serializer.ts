@@ -1,6 +1,6 @@
-import { Post } from 'src/typings';
+import { Post, SummarizedPost } from 'src/typings';
 
-export const serializePost = (item: Record<string, unknown>) => ({
+const serializePost = (item: Record<string, unknown>) => ({
   id: item._id as string,
   title: item.title as string,
   content: item.content as string,
@@ -10,7 +10,24 @@ export const serializePost = (item: Record<string, unknown>) => ({
   comments: item.comments as string[], // Id array
 });
 
-export const serializePosts = async (response: Response): Promise<Post[]> => {
+const serializeSummarizedPost = (item: Record<string, unknown>) => ({
+  id: item._id as string,
+  title: item.title as string,
+  summary: item.summary as string,
+  author: item.author as string,
+  createdAt: item.createdAt as string, // Date
+});
+
+export const serializePostResponse = async (
+  response: Response
+): Promise<Post> => {
   const payload = (await response.json()) as unknown;
-  return (payload as Record<string, unknown>[]).map(serializePost);
+  return serializePost(payload as Record<string, unknown>);
+};
+
+export const serializePostsResponse = async (
+  response: Response
+): Promise<SummarizedPost[]> => {
+  const payload = (await response.json()) as unknown;
+  return (payload as Record<string, unknown>[]).map(serializeSummarizedPost);
 };
