@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 // Pages
+import AccountPage from 'src/component/page/AccountPage';
 import LoginPage from 'src/component/page/LoginPage';
 import SignupPage from 'src/component/page/SignupPage';
 import ListPage from 'src/component/page/ListPage';
@@ -47,6 +48,10 @@ const Routes = () => {
 
         <PrivateRoute path="/post/:id/edit" exact>
           <PostPage />
+        </PrivateRoute>
+
+        <PrivateRoute path="/account" exact>
+          <AccountPage />
         </PrivateRoute>
       </Switch>
     </BrowserRouter>
