@@ -9,6 +9,7 @@ import { useParseJsonDraftState } from 'src/hook/effect';
 
 // Styles
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import './WYSIWYGEditorStyles.css';
 
 // Types
 import { WYSIWYGProps } from './WYSIWYGEditor.type';
@@ -36,12 +37,12 @@ const WYSIWYGEditor: FC<WYSIWYGProps> = forwardRef((props, ref) => {
   };
 
   return (
-    <div className={`wysiwyg-wrapper ${className}`}>
+    <div className={className}>
       <Editor
         ref={ref}
         editorState={editorState}
-        wrapperClassName="wrapper-class"
-        editorClassName="editor-class"
+        wrapperClassName="wysiwyg-wrapper"
+        editorClassName="wysiwyg-editor"
         onEditorStateChange={onEditorStateChange}
       />
     </div>

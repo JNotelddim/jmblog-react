@@ -6,5 +6,6 @@ export interface TextFieldProps {
   errorText?: string;
   errorType?: FieldError;
   inputProps: unknown; // TODO: what's returned from the `register` react-hook-form fn?
+  className?: string;
 }
 export default TextFieldProps;
