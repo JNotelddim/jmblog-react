@@ -1,0 +1,9 @@
+.wysiwyg-wrapper {
+  overflow: hidden;
+  max-height: inherit;
+}
+
+.wysiwyg-editor {
+  max-height: inherit;
+  overflow: auto;
+}

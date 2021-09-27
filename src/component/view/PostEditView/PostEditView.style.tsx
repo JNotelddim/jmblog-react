@@ -5,9 +5,10 @@ import WYSIWYGEditor from 'src/component/base/WYSIWYGEditor';
 
 export const Form = styled('form')({});
 
-export const TextField = styled(BaseTextField)({
+export const TextField = styled(BaseTextField)(({ theme }) => ({
   width: '100%',
-});
+  marginRight: theme.spacing(3),
+}));
 
 export const FormFooter = styled('div')({
   display: 'flex',
