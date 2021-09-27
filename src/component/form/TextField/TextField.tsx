@@ -1,11 +1,16 @@
 import React from 'react';
 
+// Components
+import { Box } from '@material-ui/core';
 import Text from 'src/component/base/Text';
 import ErrorText from 'src/component/base/ErrorText';
+import { Input } from './TextField.style';
 
+// Types
 import TextFieldProps from './TextField.type';
 import { StringMap } from 'src/typings';
 
+// Consts
 const errorTypeMessageMap: StringMap = {
   required: 'This field is required.',
   // min: '',
@@ -21,12 +26,16 @@ const errorTypeMessageMap: StringMap = {
   // shouldUnregister: '',
 };
 
+/**
+ * TextField is a wrapped input which includes a label and some error text.
+ */
 const TextField = ({
   label,
   type,
   errorType,
   errorText = '',
   inputProps,
+  className,
 }: TextFieldProps) => {
   let errorMessage = errorText;
   if (errorType && Object.keys(errorTypeMessageMap).includes(errorType.type)) {
@@ -34,13 +43,11 @@ const TextField = ({
   }
 
   return (
-    <>
-      <Text variant="h6" mt={2}>
-        {label}
-      </Text>
-      <input type={type} {...inputProps} />
+    <Box className={className} mt={2}>
+      <Text variant="h6">{label}</Text>
+      <Input type={type} {...inputProps} />
       <ErrorText>{errorMessage}</ErrorText>
-    </>
+    </Box>
   );
 };
 

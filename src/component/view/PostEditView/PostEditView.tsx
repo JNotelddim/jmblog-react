@@ -81,13 +81,11 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
         alignItems="flex-end"
         justifyContent="space-between"
       >
-        <div>
-          <TextField
-            label="Title"
-            inputProps={{ ...register('title', { required: true }) }}
-            errorType={errors?.title}
-          />
-        </div>
+        <TextField
+          label="Title"
+          inputProps={{ ...register('title', { required: true }) }}
+          errorType={errors?.title}
+        />
 
         {post && post.id && (
           <IconButton onClick={handleDeleteClick}>
