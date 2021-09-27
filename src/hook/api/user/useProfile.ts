@@ -11,7 +11,7 @@ import { User } from 'src/typings';
 
 // Exports
 const fetchProfileFn = async () => {
-  const response = await fetch('/profile');
+  const response = await fetch('/user');
 
   if (response.status >= 400) {
     // TODO: figure out a system for catching errors so they don't clog up the console.
