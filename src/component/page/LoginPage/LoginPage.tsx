@@ -5,8 +5,8 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import CenteredLayout from 'src/component/layout/CenteredLayout';
-import EmailField from 'src/component/form/EmailField';
-import PasswordField from 'src/component/form/PasswordField';
+import EmailField from 'src/component/base/EmailField';
+import PasswordField from 'src/component/base/PasswordField';
 import {
   Heading,
   Wrapper,
