@@ -10,7 +10,7 @@ import TextField from 'src/component/form/TextField';
 
 // Hooks
 import { useForm } from 'react-hook-form';
-import { useProfile /*, usePutProfile */ } from 'src/hook/api/user';
+import { useProfile, usePutProfile } from 'src/hook/api/user';
 
 // Styles
 import { Form } from './AccountPage.style';
@@ -21,8 +21,6 @@ import { ProfileFormData } from 'src/typings';
 /**
  * AccountPage shows the user their profile information, and offers
  * the opportunity to edit that information.
- * For now, I'm making the email address field disabled, because I don't
- * want emails getting changed around.
  *
  * Also, I think it's worth noting that the strucutre of these contents is
  * currently contrary to my intended pattern. A more ideal structure would be for
@@ -38,6 +36,7 @@ const AccountPage: FC = () => {
     isLoading,
     isError,
   } = useProfile({ onSettled: () => reset() });
+  const { mutate: putProfile } = usePutProfile({});
 
   const { register, handleSubmit, formState, reset } = useForm<ProfileFormData>(
     {
@@ -51,8 +50,10 @@ const AccountPage: FC = () => {
 
   // Handlers
   const onSubmit = (formData: ProfileFormData) => {
-    // TODO: make this hook
-    // putProfile({ ...formData });
+    if (!profile) {
+      return; // Is there a better way to handle this? an error / snackbar?
+    }
+    putProfile({ ...formData, id: profile.id });
     setIsEditing(false);
   };
 
@@ -90,7 +91,7 @@ const AccountPage: FC = () => {
           <TextField
             label="Email"
             inputProps={{
-              ...register('email', { required: true, disabled: true }),
+              ...register('email', { required: true }),
             }}
             errorType={errors?.email}
           />

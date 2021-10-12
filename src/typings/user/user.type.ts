@@ -24,3 +24,14 @@ export interface UserState {
   isAuthenticated: boolean;
   profile?: User;
 }
+
+export interface ProfileFormData {
+  email: string;
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+}
+
+export interface ProfileSubmitData extends ProfileFormData {
+  id: string;
+}

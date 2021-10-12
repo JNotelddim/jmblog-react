@@ -26,13 +26,6 @@ export interface SignupFormData extends LoginFormData {
   passwordConfirmation: string;
 }
 
-export interface ProfileFormData {
-  email: string;
-  username?: string;
-  firstName?: string;
-  lastName?: string;
-}
-
 export interface LoginResponse {
   accessToken: string;
 }
