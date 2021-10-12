@@ -7,6 +7,7 @@ import { Edit } from '@material-ui/icons';
 import Text from 'src/component/base/Text';
 import CenteredLayout from 'src/component/layout/CenteredLayout';
 import TextField from 'src/component/form/TextField';
+import LabelledText from 'src/component/base/LabelledText';
 
 // Hooks
 import { useForm } from 'react-hook-form';
@@ -35,7 +36,7 @@ const AccountPage: FC = () => {
     data: profile,
     isLoading,
     isError,
-  } = useProfile({ onSettled: () => reset() });
+  } = useProfile({ onSettled: (data, error) => reset(data) });
   const { mutate: putProfile } = usePutProfile({});
 
   const { register, handleSubmit, formState, reset } = useForm<ProfileFormData>(
@@ -54,6 +55,7 @@ const AccountPage: FC = () => {
       return; // Is there a better way to handle this? an error / snackbar?
     }
     putProfile({ ...formData, id: profile.id });
+    reset();
     setIsEditing(false);
   };
 
@@ -80,10 +82,10 @@ const AccountPage: FC = () => {
             </IconButton>
           </Box>
           <Box>
-            <Text>Email: {profile?.email}</Text>
-            <Text>Username: {profile?.username}</Text>
-            <Text>First Name: {profile?.firstName}</Text>
-            <Text>Last Name: {profile?.lastName}</Text>
+            <LabelledText label="Email">{profile?.email}</LabelledText>
+            <LabelledText label="User Name">{profile?.userName}</LabelledText>
+            <LabelledText label="First Name">{profile?.firstName}</LabelledText>
+            <LabelledText label="Last Name">{profile?.lastName}</LabelledText>
           </Box>
         </>
       ) : (
@@ -98,7 +100,7 @@ const AccountPage: FC = () => {
           <TextField
             label="Username"
             inputProps={{
-              ...register('username', { required: false }),
+              ...register('userName', { required: false }),
             }}
             errorType={errors?.email}
           />

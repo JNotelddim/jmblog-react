@@ -12,7 +12,7 @@ export interface LogoutUserAction {
 export type UserActionTypes = LoginUserAction | LogoutUserAction;
 
 export interface User {
-  username: string;
+  userName: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -27,7 +27,7 @@ export interface UserState {
 
 export interface ProfileFormData {
   email: string;
-  username?: string;
+  userName?: string;
   firstName?: string;
   lastName?: string;
 }
