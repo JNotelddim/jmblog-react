@@ -9,15 +9,19 @@ const errorTypeMessageMap: StringMap = {
   pattern: 'Please enter a valid email.',
 };
 
-const EmailField: React.FC<TextFieldProps> = ({ errorType, ...props }) => {
+const EmailField: React.FC<TextFieldProps> = ({
+  errorType,
+  errorText,
+  ...props
+}) => {
   // TODO: move this errorMessage logic to a hook for reuse?
-  let errorText;
+  let errorMessage = errorText;
   if (errorType) {
-    errorText = errorTypeMessageMap[errorType.type];
+    errorMessage = errorTypeMessageMap[errorType.type];
   }
 
   return (
-    <TextField label="Email" type="email" errorText={errorText} {...props} />
+    <TextField label="Email" type="email" errorText={errorMessage} {...props} />
   );
 };
 

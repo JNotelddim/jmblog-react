@@ -8,8 +8,16 @@ const signupFn = async (formData: SignupFormData) => {
     method: 'POST',
     body: JSON.stringify(formData),
   });
+
+  if (!res.ok) {
+    if (res.status === 409) {
+      throw new Error('Email address already in use.');
+    } else {
+      throw new Error('Signup failed. Feel free to try again.');
+    }
+  }
+
   return res;
-  // TODO: if !res.ok, throw error
 };
 
 export const useSignup = (

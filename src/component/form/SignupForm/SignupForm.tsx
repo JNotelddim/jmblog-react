@@ -7,11 +7,7 @@ import EmailField from 'src/component/base/EmailField';
 import PasswordField from 'src/component/base/PasswordField';
 
 // Note that the styles below are from the Login Page!
-import {
-  Form,
-  // FootingContainer,
-  // RedirectText,
-} from 'src/component/form/LoginForm/LoginForm.style';
+import { Form } from 'src/component/form/LoginForm/LoginForm.style';
 
 // Hooks
 import { useForm } from 'react-hook-form';
@@ -28,16 +24,19 @@ import { SignupFormData } from 'src/typings';
 const SignupForm: FC = (props) => {
   // Hooks
   const history = useHistory();
-  const { register, handleSubmit, formState, getValues } =
+  const { register, handleSubmit, formState, getValues, setError } =
     useForm<SignupFormData>({
       mode: 'onBlur',
     });
   const { mutate: signup } = useSignup({
     onSuccess: () => {
       history.push('/login');
-      // TODO success snackbar once snackbar provider is set up
+      // TODO success snackbar
     },
-    // TODO: add onError here which adds some component state for a generalError (See LoginPage)
+    onError: (e) => {
+      // TODO: error snackbar
+      setError('email', { message: (e as Error).message, type: 'validate' });
+    },
   });
   const { isValid, errors } = formState;
 
@@ -59,7 +58,7 @@ const SignupForm: FC = (props) => {
               /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
           }),
         }}
-        errorType={errors?.email}
+        errorText={errors?.email?.message}
       />
 
       <PasswordField
@@ -86,6 +85,7 @@ const SignupForm: FC = (props) => {
         }}
         errorType={errors?.passwordConfirmation}
       />
+
       <Box mt={3}>
         <Button type="submit" disabled={!isValid}>
           Sign up
