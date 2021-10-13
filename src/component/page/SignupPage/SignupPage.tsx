@@ -6,13 +6,14 @@ import { Button } from '@material-ui/core';
 import CenteredLayout from 'src/component/layout/CenteredLayout';
 import EmailField from 'src/component/base/EmailField';
 import PasswordField from 'src/component/base/PasswordField';
+
+// Note that the styles below are from the Login Page!
+import { Heading } from 'src/component/page/LoginPage/LoginPage.style';
 import {
-  Heading,
   Wrapper,
   FootingContainer,
   RedirectText,
-  // Note that these are styles from the Login Page!
-} from 'src/component/page/LoginPage/LoginPage.style';
+} from 'src/component/form/LoginForm/LoginForm.style';
 
 // Hooks
 import { useForm } from 'react-hook-form';
