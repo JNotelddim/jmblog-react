@@ -1,6 +1,6 @@
 // Modules
 import React, { FC } from 'react';
-import { Button } from '@material-ui/core';
+import { Button, Box } from '@material-ui/core';
 
 // Components
 import EmailField from 'src/component/base/EmailField';
@@ -16,7 +16,7 @@ import {
 // Hooks
 import { useForm } from 'react-hook-form';
 import { useSignup } from 'src/hook/api/auth';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 // Types
 import { SignupFormData } from 'src/typings';
@@ -86,16 +86,11 @@ const SignupForm: FC = (props) => {
         }}
         errorType={errors?.passwordConfirmation}
       />
-      <Button type="submit" disabled={!isValid}>
-        Sign up
-      </Button>
-      {/* 
-      <FootingContainer>
-       
-        <RedirectText>
-          Already have an accout? <Link to={'/login'}>Login here.</Link>
-        </RedirectText>
-      </FootingContainer> */}
+      <Box mt={3}>
+        <Button type="submit" disabled={!isValid}>
+          Sign up
+        </Button>
+      </Box>
     </Form>
   );
 };

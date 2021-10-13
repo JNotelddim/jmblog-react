@@ -2,11 +2,16 @@
 import React from 'react';
 
 // Components
+import { Link } from 'react-router-dom';
 import SignupForm from 'src/component/form/SignupForm';
 import CenteredLayout from 'src/component/layout/CenteredLayout';
 
-// Note that the styles below are from the Login Page!
-import { Heading } from 'src/component/page/LoginPage/LoginPage.style';
+// Note that the styles below are from the **Login Page**!
+import {
+  Heading,
+  Footer,
+  RedirectText,
+} from 'src/component/page/LoginPage/LoginPage.style';
 
 /**
  * SignupPage is the page where a user comes to create an account.
@@ -17,6 +22,12 @@ const SignupPage: React.FC = () => (
     <Heading>Sign up</Heading>
 
     <SignupForm />
+
+    <Footer>
+      <RedirectText>
+        Already have an accout? <Link to={'/login'}>Login here.</Link>
+      </RedirectText>
+    </Footer>
   </CenteredLayout>
 );
 
