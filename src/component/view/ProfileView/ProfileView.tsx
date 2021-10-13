@@ -4,7 +4,9 @@ import React, { FC } from 'react';
 // Components
 import { Box, IconButton } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
-import LabelledText from 'src/component/base/LabelledText';
+
+// Styled Components
+import { LabelledText } from './Profile.style';
 
 // Typings
 import { ProfileViewProps } from './ProfileView.type';
@@ -32,8 +34,11 @@ const ProfileView: FC<ProfileViewProps> = ({ handleSwapToEditing }) => {
         <Box>
           <LabelledText label="Email">{profile?.email}</LabelledText>
           <LabelledText label="User Name">{profile?.userName}</LabelledText>
-          <LabelledText label="First Name">{profile?.firstName}</LabelledText>
-          <LabelledText label="Last Name">{profile?.lastName}</LabelledText>
+
+          <Box display="flex">
+            <LabelledText label="First Name">{profile?.firstName}</LabelledText>
+            <LabelledText label="Last Name">{profile?.lastName}</LabelledText>
+          </Box>
         </Box>
       )}
     </>

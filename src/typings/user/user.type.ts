@@ -37,7 +37,10 @@ export interface ProfileSubmitData extends ProfileFormData {
 }
 
 export interface PasswordChangeData {
-  id: string;
   oldPassword: string;
   newPassword: string;
+}
+
+export interface PasswordChangeFormData extends PasswordChangeData {
+  passwordConfirmation: string;
 }

@@ -16,9 +16,10 @@ const LabelledText: FC<LabelledTextProps> = ({
   labelVariant,
   textVariant,
   children,
+  ...props
 }) => {
   return (
-    <Base>
+    <Base {...props}>
       <LabelText variant={labelVariant}>{label}</LabelText>
       <BaseText variant={textVariant}>{children}</BaseText>
     </Base>

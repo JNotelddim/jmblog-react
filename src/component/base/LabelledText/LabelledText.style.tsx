@@ -7,6 +7,7 @@ export const Base = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   marginBottom: theme.spacing(2),
+  minHeight: '56px',
 }));
 
 export const LabelText = styled((props) => {
