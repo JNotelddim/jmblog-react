@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 
 // Components
 import { Box, Button } from '@material-ui/core';
-import TextField from 'src/component/base/TextField';
+import PasswordField from 'src/component/base/PasswordField';
 
 // Styles
 import { Form } from './ChangePasswordForm.style';
@@ -21,17 +21,14 @@ import { ChangePasswordFormProps } from './ChangePasswordForm.type';
  * password and updating it to a new value.
  */
 const ChangePasswordForm: FC<ChangePasswordFormProps> = ({ onCancel }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-    getValues,
-    reset,
-  } = useForm<PasswordChangeFormData>({
-    mode: 'onBlur',
-  });
+  const { register, handleSubmit, formState, getValues, reset } =
+    useForm<PasswordChangeFormData>({
+      mode: 'all',
+    });
+  const { errors, isValid } = formState;
   const { mutate: changePassword } = useChangePassword({
     onSuccess: () => {
+      // TODO: notify user w/ snackbar notification
       reset();
       onCancel();
     },
@@ -47,20 +44,26 @@ const ChangePasswordForm: FC<ChangePasswordFormProps> = ({ onCancel }) => {
   };
 
   return (
-    <Form onSubmit={() => handleSubmit(onSubmit)}>
-      <TextField
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <PasswordField
         label="Old Password"
         inputProps={{ ...register('oldPassword', { required: true }) }}
         errorType={errors?.oldPassword}
       />
 
-      <TextField
+      <PasswordField
         label="New Password"
-        inputProps={{ ...register('newPassword', { required: true }) }}
+        inputProps={{
+          ...register('newPassword', {
+            required: true,
+            minLength: 10,
+            maxLength: 100,
+          }),
+        }}
         errorType={errors?.newPassword}
       />
 
-      <TextField
+      <PasswordField
         label="Confirm Password"
         inputProps={{
           ...register('passwordConfirmation', {
