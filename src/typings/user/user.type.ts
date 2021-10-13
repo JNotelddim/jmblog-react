@@ -35,3 +35,9 @@ export interface ProfileFormData {
 export interface ProfileSubmitData extends ProfileFormData {
   id: string;
 }
+
+export interface PasswordChangeData {
+  id: string;
+  oldPassword: string;
+  newPassword: string;
+}

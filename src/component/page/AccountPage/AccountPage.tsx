@@ -22,6 +22,8 @@ const AccountPage: FC = () => {
     setIsEditing(true);
   };
 
+  // TODO: add in 'changePassword' button => form/modal
+
   // Render
   return (
     <CenteredLayout>
