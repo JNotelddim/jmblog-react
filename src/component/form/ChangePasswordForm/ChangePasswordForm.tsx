@@ -20,15 +20,25 @@ import { ChangePasswordFormProps } from './ChangePasswordForm.type';
  * ChangePasswordForm displays a form which handles verifying the user's current
  * password and updating it to a new value.
  */
-const ChangePasswordForm: FC<ChangePasswordFormProps> = () => {
-  const { mutate: changePassword } = useChangePassword({});
+const ChangePasswordForm: FC<ChangePasswordFormProps> = ({ onCancel }) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
     getValues,
+    reset,
   } = useForm<PasswordChangeFormData>({
     mode: 'onBlur',
+  });
+  const { mutate: changePassword } = useChangePassword({
+    onSuccess: () => {
+      reset();
+      onCancel();
+    },
+    onError: (e) => {
+      // TODO: notify user w/ snackbar notification
+      console.error(e);
+    },
   });
 
   // Handlers
@@ -65,8 +75,10 @@ const ChangePasswordForm: FC<ChangePasswordFormProps> = () => {
       />
 
       <Box display="flex" mt={2}>
-        <Button>Cancel</Button>
-        <Button type="submit" disabled={!isValid} />
+        <Button onClick={onCancel}>Cancel</Button>
+        <Button type="submit" disabled={!isValid}>
+          Save Change
+        </Button>
       </Box>
     </Form>
   );
