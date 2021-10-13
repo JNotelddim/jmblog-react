@@ -30,7 +30,13 @@ const ListPage = () => {
   const handleNewPostClick = () => history.push('/post/new');
 
   return (
-    <CenteredLayout>
+    <CenteredLayout
+      helmetProps={{
+        title: 'Posts',
+        description:
+          'This page lists posts on this blog, with the most recent ones appearing first.',
+      }}
+    >
       <Typography color="primary" variant="h1" gutterBottom>
         Posts
       </Typography>
