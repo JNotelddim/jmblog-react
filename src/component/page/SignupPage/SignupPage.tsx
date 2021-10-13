@@ -18,7 +18,7 @@ import {
  * After the successful account creation, they will be redirected to the /login page.
  */
 const SignupPage: React.FC = () => (
-  <CenteredLayout>
+  <CenteredLayout helmetProps={{ title: 'Sign Up' }}>
     <Heading>Sign up</Heading>
 
     <SignupForm />

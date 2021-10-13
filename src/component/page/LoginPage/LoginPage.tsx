@@ -14,7 +14,7 @@ import { Heading, RedirectText, Footer } from './LoginPage.style';
  * TODO: 'forgot your password?' -- blocked by API.
  */
 const LoginPage: React.FC = () => (
-  <CenteredLayout>
+  <CenteredLayout helmetProps={{ title: 'Login' }}>
     <Heading>Login</Heading>
 
     <LoginForm />

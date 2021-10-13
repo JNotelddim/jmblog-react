@@ -28,7 +28,7 @@ const PostPage: React.FC = () => {
 
   // Render
   return (
-    <CenteredLayout>
+    <CenteredLayout helmetProps={{ title: post?.title }}>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (

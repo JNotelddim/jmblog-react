@@ -36,7 +36,7 @@ const AccountPage: FC = () => {
 
   // Render
   return (
-    <CenteredLayout>
+    <CenteredLayout helmetProps={{ title: 'Account' }}>
       <Text variant="h2">Account</Text>
 
       {viewState === StatesEnum.View && (
