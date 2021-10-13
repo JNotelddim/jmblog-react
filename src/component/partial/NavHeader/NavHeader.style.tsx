@@ -5,4 +5,5 @@ export const Container = styled('div')(({ theme }) => ({
   flexDirection: 'row',
   justifyContent: 'space-between',
   padding: theme.spacing(1.5, 10),
+  minHeight: '60px', // stops it from jumping when there is/isn't a button in the header
 }));
