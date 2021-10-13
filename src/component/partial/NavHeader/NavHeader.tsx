@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 
 // Components
-import { Button, IconButton, Menu, MenuItem } from '@material-ui/core';
+import { Button, Menu, MenuItem } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import Text from 'src/component/base/Text';
 
 // Styled Components
-import { Container } from './NavHeader.style';
+import { Container, IconButton } from './NavHeader.style';
 
 // Hooks
 import { useAppSelector } from 'src/hook/redux';
