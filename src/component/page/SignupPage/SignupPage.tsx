@@ -38,6 +38,7 @@ const SignupPage: React.FC = () => {
       history.push('/login');
       // TODO success snackbar once snackbar provider is set up
     },
+    // TODO: add onError here which adds some component state for a generalError (See LoginPage)
   });
   const { isValid, errors } = formState;
 
@@ -92,7 +93,9 @@ const SignupPage: React.FC = () => {
           />
 
           <FootingContainer>
-            <Button type="submit">Sign up</Button>
+            <Button type="submit" disabled={!isValid}>
+              Sign up
+            </Button>
             <RedirectText>
               Already have an accout? <Link to={'/login'}>Login here.</Link>
             </RedirectText>

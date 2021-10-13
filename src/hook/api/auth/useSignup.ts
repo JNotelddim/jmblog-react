@@ -9,6 +9,7 @@ const signupFn = async (formData: SignupFormData) => {
     body: JSON.stringify(formData),
   });
   return res;
+  // TODO: if !res.ok, throw error
 };
 
 export const useSignup = (

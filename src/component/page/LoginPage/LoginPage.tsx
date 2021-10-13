@@ -1,5 +1,5 @@
 // Modules
-import React from 'react';
+import React, { useState } from 'react';
 
 // Components
 import { Button } from '@material-ui/core';
@@ -20,6 +20,7 @@ import { useLogin } from 'src/hook/api/auth';
 
 // Types
 import { LoginFormData } from 'src/typings';
+import ErrorText from 'src/component/base/ErrorText';
 
 /**
  * LoginPage is the page where a user goes to log in to their account.
@@ -28,16 +29,29 @@ import { LoginFormData } from 'src/typings';
  */
 const LoginPage: React.FC = () => {
   // Hooks
-  const { register, handleSubmit, formState } = useForm<LoginFormData>({
-    mode: 'onBlur',
+  const [generalError, setGeneralError] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid, errors },
+  } = useForm<LoginFormData>({
+    mode: 'all',
   });
-  const { mutate: login } = useLogin();
-  const { isValid, errors } = formState;
+  const { mutate: login } = useLogin({
+    onError: (e) => {
+      setGeneralError('Invalid credentials.');
+    },
+  });
 
   // Handlers
   const onSubmit = (formData: LoginFormData) => {
     if (isValid) {
       login(formData);
+    }
+  };
+  const handlePostFailureChange = () => {
+    if (generalError) {
+      setGeneralError('');
     }
   };
 
@@ -49,17 +63,31 @@ const LoginPage: React.FC = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Wrapper>
           <EmailField
-            inputProps={{ ...register('email', { required: true }) }}
+            inputProps={{
+              ...register('email', {
+                required: true,
+                onChange: handlePostFailureChange,
+              }),
+            }}
             errorType={errors?.email}
           />
 
           <PasswordField
-            inputProps={{ ...register('password', { required: true }) }}
+            inputProps={{
+              ...register('password', {
+                required: true,
+                onChange: handlePostFailureChange,
+              }),
+            }}
             errorType={errors?.password}
           />
 
+          <ErrorText>{generalError}</ErrorText>
+
           <FootingContainer>
-            <Button type="submit">Login</Button>
+            <Button type="submit" disabled={!isValid}>
+              Login
+            </Button>
             <RedirectText>
               Don't have an accout? <Link to={'/signup'}>Sign up here.</Link>
             </RedirectText>
