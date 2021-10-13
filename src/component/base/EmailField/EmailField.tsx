@@ -1,7 +1,7 @@
 import React from 'react';
 
-import TextField from 'src/component/form/TextField';
-import TextFieldProps from 'src/component/form/TextField/TextField.type';
+import TextField from 'src/component/base/TextField';
+import TextFieldProps from 'src/component/base/TextField/TextField.type';
 import { StringMap } from 'src/typings';
 
 const errorTypeMessageMap: StringMap = {

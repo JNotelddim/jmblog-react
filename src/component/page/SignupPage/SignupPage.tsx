@@ -4,8 +4,8 @@ import { Button } from '@material-ui/core';
 
 // Components
 import CenteredLayout from 'src/component/layout/CenteredLayout';
-import EmailField from 'src/component/form/EmailField';
-import PasswordField from 'src/component/form/PasswordField';
+import EmailField from 'src/component/base/EmailField';
+import PasswordField from 'src/component/base/PasswordField';
 import {
   Heading,
   Wrapper,
@@ -38,6 +38,7 @@ const SignupPage: React.FC = () => {
       history.push('/login');
       // TODO success snackbar once snackbar provider is set up
     },
+    // TODO: add onError here which adds some component state for a generalError (See LoginPage)
   });
   const { isValid, errors } = formState;
 
@@ -92,7 +93,9 @@ const SignupPage: React.FC = () => {
           />
 
           <FootingContainer>
-            <Button type="submit">Sign up</Button>
+            <Button type="submit" disabled={!isValid}>
+              Sign up
+            </Button>
             <RedirectText>
               Already have an accout? <Link to={'/login'}>Login here.</Link>
             </RedirectText>

@@ -10,17 +10,17 @@ import { usePutPost, useDeletePost } from 'src/hook/api/posts';
 import { Box, Button, IconButton } from '@material-ui/core';
 import { DeleteForever } from '@material-ui/icons';
 import Text from 'src/component/base/Text';
-import { Form, TextField, FormFooter, Editor } from './PostEditView.style';
+import { Form, TextField, FormFooter, Editor } from './PostForm.style';
 
 // Types
 import { PostFormData } from 'src/typings';
-import { PostEditViewProps } from './PostEditView.type';
+import { PostFormProps } from './PostForm.type';
 import { handleParseJsonDraftState } from 'src/hook/effect';
 
 /**
- * PostEditView is where the user can write a new blog post or edit an existing one
+ * PostForm is where the user can write a new blog post or edit an existing one
  */
-const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
+const PostForm: React.FC<PostFormProps> = ({ post }) => {
   // Hooks
   const history = useHistory();
   const { register, handleSubmit, formState, control } = useForm<PostFormData>({
@@ -30,7 +30,7 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
   const { mutate: deletePost } = useDeletePost();
   const { mutate: putPost } = usePutPost({
     onSuccess: () => {
-      redirectFromEditView();
+      redirectFromForm();
     },
   });
 
@@ -49,10 +49,10 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
   };
 
   const handleCancel = () => {
-    redirectFromEditView();
+    redirectFromForm();
   };
 
-  const redirectFromEditView = () => {
+  const redirectFromForm = () => {
     if (post !== undefined) {
       const pathLessEdit = history.location.pathname.replace(/\/edit/, '');
       history.push(pathLessEdit);
@@ -123,4 +123,4 @@ const PostEditView: React.FC<PostEditViewProps> = ({ post }) => {
   );
 };
 
-export default PostEditView;
+export default PostForm;

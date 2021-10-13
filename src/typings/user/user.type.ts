@@ -12,7 +12,7 @@ export interface LogoutUserAction {
 export type UserActionTypes = LoginUserAction | LogoutUserAction;
 
 export interface User {
-  username: string;
+  userName: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -23,4 +23,24 @@ export interface User {
 export interface UserState {
   isAuthenticated: boolean;
   profile?: User;
+}
+
+export interface ProfileFormData {
+  email: string;
+  userName?: string;
+  firstName?: string;
+  lastName?: string;
+}
+
+export interface ProfileSubmitData extends ProfileFormData {
+  id: string;
+}
+
+export interface PasswordChangeData {
+  oldPassword: string;
+  newPassword: string;
+}
+
+export interface PasswordChangeFormData extends PasswordChangeData {
+  passwordConfirmation: string;
 }

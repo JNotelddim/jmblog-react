@@ -1,5 +1,5 @@
 import { Post } from 'src/typings';
 
-export interface PostEditViewProps {
+export interface PostFormProps {
   post?: Post;
 }

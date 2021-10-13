@@ -1,6 +1,6 @@
 import { styled } from '@material-ui/core';
 
-import BaseTextField from 'src/component/form/TextField';
+import BaseTextField from 'src/component/base/TextField';
 import WYSIWYGEditor from 'src/component/base/WYSIWYGEditor';
 
 export const Form = styled('form')({});

@@ -12,13 +12,18 @@ const loginFn = async (formData: LoginFormData) => {
     method: 'POST',
     body: JSON.stringify(formData),
   });
-  const { accessToken } = await serializeLoginResponse(res);
-  // Set token with ServiceWorker so that requests to API send with "Authorization" header
-  navigator.serviceWorker.controller?.postMessage({
-    type: 'SET_TOKEN',
-    token: accessToken,
-  });
-  return res;
+
+  if (res.ok) {
+    const { accessToken } = await serializeLoginResponse(res);
+    // Set token with ServiceWorker so that requests to API send with "Authorization" header
+    navigator.serviceWorker.controller?.postMessage({
+      type: 'SET_TOKEN',
+      token: accessToken,
+    });
+    return res;
+  } else {
+    throw new Error('Login failed.');
+  }
 };
 
 export const UseLogin = (
