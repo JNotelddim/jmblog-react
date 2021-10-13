@@ -41,6 +41,7 @@ const AccountPage: FC = () => {
 
       {viewState === StatesEnum.View && (
         <>
+          {/* Rearrange these to make it less ugly */}
           <Box display="flex" flexDirection="column" alignItems="flex-end">
             <Button onClick={swapToChangingPassword}>Change Password</Button>
             <Button startIcon={<Edit />} onClick={swapToEditing}>
