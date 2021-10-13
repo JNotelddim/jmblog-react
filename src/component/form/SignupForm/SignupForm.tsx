@@ -9,8 +9,8 @@ import PasswordField from 'src/component/base/PasswordField';
 // Note that the styles below are from the Login Page!
 import {
   Form,
-  FootingContainer,
-  RedirectText,
+  // FootingContainer,
+  // RedirectText,
 } from 'src/component/form/LoginForm/LoginForm.style';
 
 // Hooks
@@ -86,15 +86,16 @@ const SignupForm: FC = (props) => {
         }}
         errorType={errors?.passwordConfirmation}
       />
-
+      <Button type="submit" disabled={!isValid}>
+        Sign up
+      </Button>
+      {/* 
       <FootingContainer>
-        <Button type="submit" disabled={!isValid}>
-          Sign up
-        </Button>
+       
         <RedirectText>
           Already have an accout? <Link to={'/login'}>Login here.</Link>
         </RedirectText>
-      </FootingContainer>
+      </FootingContainer> */}
     </Form>
   );
 };

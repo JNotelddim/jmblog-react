@@ -2,11 +2,10 @@
 import React, { useState, FC } from 'react';
 
 // Components
-import { Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Button, Box } from '@material-ui/core';
 import EmailField from 'src/component/base/EmailField';
 import PasswordField from 'src/component/base/PasswordField';
-import { Form, FootingContainer, RedirectText } from './LoginForm.style';
+import { Form } from './LoginForm.style';
 
 // Hooks
 import { useForm } from 'react-hook-form';
@@ -74,14 +73,11 @@ const LoginForm: FC = () => {
 
       <ErrorText>{generalError}</ErrorText>
 
-      <FootingContainer>
+      <Box mt={3}>
         <Button type="submit" disabled={!isValid}>
           Login
         </Button>
-        <RedirectText>
-          Don't have an accout? <Link to={'/signup'}>Sign up here.</Link>
-        </RedirectText>
-      </FootingContainer>
+      </Box>
     </Form>
   );
 };
