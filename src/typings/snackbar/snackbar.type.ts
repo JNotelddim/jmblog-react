@@ -18,3 +18,9 @@ export interface Snackbar {
 export interface SnackbarState {
   snackbars: Snackbar[];
 }
+
+export interface OpenSnackbarProps {
+  message: string;
+  type?: AlertType;
+  timeout?: number;
+}

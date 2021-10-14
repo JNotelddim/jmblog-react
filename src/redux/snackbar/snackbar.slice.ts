@@ -6,13 +6,7 @@ import { Snackbar, SnackbarState, RootState } from 'src/typings';
 
 // Consts
 const initialState: SnackbarState = {
-  snackbars: [
-    // TODO: remove sample data
-    {
-      type: 'ERROR',
-      message: 'Test snackbar',
-    },
-  ],
+  snackbars: [],
 };
 
 // Slice
