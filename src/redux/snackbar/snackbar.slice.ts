@@ -1,17 +1,21 @@
+// Modules
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { RootState } from 'src/typings/redux';
-import { Snackbar, SnackbarState } from 'src/typings';
+// Types
+import { Snackbar, SnackbarState, RootState } from 'src/typings';
 
+// Consts
 const initialState: SnackbarState = {
   snackbars: [
     // TODO: remove sample data
     {
+      type: 'SUCCESS',
       message: 'Test snackbar',
     },
   ],
 };
 
+// Slice
 export const userSlice = createSlice({
   name: 'snackbar',
   initialState: initialState,
@@ -25,8 +29,11 @@ export const userSlice = createSlice({
   },
 });
 
+// Actions
 export const { show, hide } = userSlice.actions;
 
-export const selectTopSnackbar = (state: RootState) => state;
+// Selectors
+export const selectTopSnackbar = (state: RootState) =>
+  [...state.snackbar.snackbars].pop();
 
 export default userSlice.reducer;
