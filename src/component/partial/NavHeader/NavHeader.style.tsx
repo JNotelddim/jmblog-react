@@ -6,6 +6,7 @@ export const Container = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
   padding: theme.spacing(1.5, 10),
   minHeight: '60px', // stops it from jumping when there is/isn't a button in the header
+  // TODO: ensure it stays this size
 }));
 
 export const IconButton = styled(MuiIconButton)({

@@ -11,6 +11,7 @@ import { Form } from './ChangePasswordForm.style';
 
 // Hooks
 import { useChangePassword } from 'src/hook/api/user';
+import { useSnackbarNotification } from 'src/hook/effect';
 
 // Typings
 import { PasswordChangeFormData } from 'src/typings';
@@ -21,6 +22,7 @@ import { ChangePasswordFormProps } from './ChangePasswordForm.type';
  * password and updating it to a new value.
  */
 const ChangePasswordForm: FC<ChangePasswordFormProps> = ({ onCancel }) => {
+  const { openNotification } = useSnackbarNotification();
   const { register, handleSubmit, formState, getValues, reset } =
     useForm<PasswordChangeFormData>({
       mode: 'all',
@@ -28,13 +30,18 @@ const ChangePasswordForm: FC<ChangePasswordFormProps> = ({ onCancel }) => {
   const { errors, isValid } = formState;
   const { mutate: changePassword } = useChangePassword({
     onSuccess: () => {
-      // TODO: notify user w/ snackbar notification
+      openNotification({
+        message: 'You password has been updated.',
+        type: 'SUCCESS',
+      });
       reset();
       onCancel();
     },
     onError: (e) => {
-      // TODO: notify user w/ snackbar notification
-      console.error(e);
+      openNotification({
+        message: 'Password update failed. Please try again.',
+        type: 'ERROR',
+      });
     },
   });
 

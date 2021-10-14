@@ -13,6 +13,7 @@ import { Form } from 'src/component/form/LoginForm/LoginForm.style';
 import { useForm } from 'react-hook-form';
 import { useSignup } from 'src/hook/api/auth';
 import { useHistory } from 'react-router-dom';
+import { useSnackbarNotification } from 'src/hook/effect';
 
 // Types
 import { SignupFormData } from 'src/typings';
@@ -24,17 +25,18 @@ import { SignupFormData } from 'src/typings';
 const SignupForm: FC = (props) => {
   // Hooks
   const history = useHistory();
+  const { openNotification } = useSnackbarNotification();
   const { register, handleSubmit, formState, getValues, setError } =
     useForm<SignupFormData>({
       mode: 'onBlur',
     });
   const { mutate: signup } = useSignup({
     onSuccess: () => {
+      openNotification({ message: 'Account created.', type: 'SUCCESS' });
       history.push('/login');
-      // TODO success snackbar
     },
     onError: (e) => {
-      // TODO: error snackbar
+      openNotification({ message: 'Account creation failed', type: 'ERROR' });
       setError('email', { message: (e as Error).message, type: 'validate' });
     },
   });

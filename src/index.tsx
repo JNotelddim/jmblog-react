@@ -2,9 +2,12 @@
 import { config } from 'dotenv';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+// Providers
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from '@material-ui/styles';
 import { Provider as ReduxProvider } from 'react-redux';
+import SnackbarProvider from 'src/component/provider/SnackbarProvider';
 
 // Local components
 import { initializeServiceWorker } from './serviceWorker/initServiceWorker';
@@ -25,7 +28,9 @@ ReactDOM.render(
     <ReduxProvider store={store}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <Routes />
+          <SnackbarProvider>
+            <Routes />
+          </SnackbarProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </ReduxProvider>
