@@ -11,22 +11,6 @@ const initialState: SnackbarState = {
     {
       type: 'ERROR',
       message: 'Test snackbar',
-      timeout: 4000,
-    },
-    {
-      type: 'SUCCESS',
-      message: 'Test snackbar',
-      timeout: 3000,
-    },
-    {
-      type: 'INFO',
-      message: 'Test snackbar',
-      timeout: 2000,
-    },
-    {
-      type: 'ERROR',
-      message: 'Test snackbar',
-      timeout: 1000,
     },
   ],
 };

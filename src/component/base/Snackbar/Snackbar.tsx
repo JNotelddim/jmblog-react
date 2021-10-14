@@ -10,7 +10,8 @@ import Text from 'src/component/base/Text';
 import { SnackbarProps } from './Snackbar.type';
 
 /**
- * Snackbar ...
+ * Snackbar extends the MUI Snackbar component with custom styling
+ * and placement
  */
 const Snackbar: FC<SnackbarProps & { onClose: () => void }> = ({
   message,
@@ -18,20 +19,17 @@ const Snackbar: FC<SnackbarProps & { onClose: () => void }> = ({
   type,
   onClose,
   ...props
-}) => {
-  console.log({ props });
-  return (
-    <MuiSnackbar
-      open={true}
-      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      onClose={onClose}
-      {...props}
-    >
-      <Alert type={type} onClose={onClose}>
-        <Text>{message}</Text>
-      </Alert>
-    </MuiSnackbar>
-  );
-};
+}) => (
+  <MuiSnackbar
+    open={true}
+    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+    onClose={onClose}
+    {...props}
+  >
+    <Alert type={type} onClose={onClose}>
+      <Text>{message}</Text>
+    </Alert>
+  </MuiSnackbar>
+);
 
 export default Snackbar;

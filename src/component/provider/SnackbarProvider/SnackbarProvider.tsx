@@ -9,7 +9,7 @@ import { hide, selectTopSnackbar } from 'src/redux/snackbar';
 import { useAppDispatch, useAppSelector } from 'src/hook/redux';
 
 /**
- * SnackbarProvider ...
+ * SnackbarProvider hosts the global snackbar notifications for the application.
  */
 const SnackbarProvider: FC = ({ children }) => {
   const activeSnackbar = useAppSelector(selectTopSnackbar);
@@ -18,11 +18,8 @@ const SnackbarProvider: FC = ({ children }) => {
 
   // Handlers
   const handleClose = () => {
-    console.log('handleClose');
     dispatch(hide());
   };
-
-  console.log({ type, timeout });
 
   return activeSnackbar ? (
     <>
@@ -30,7 +27,7 @@ const SnackbarProvider: FC = ({ children }) => {
         message={message}
         type={type || 'INFO'}
         onClose={handleClose}
-        autoHideDuration={timeout}
+        autoHideDuration={timeout || 15000}
       />
       {children}
     </>
