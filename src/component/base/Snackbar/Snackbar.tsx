@@ -3,10 +3,8 @@ import React, { FC } from 'react';
 
 // Components
 import { Snackbar as MuiSnackbar } from '@material-ui/core';
+import Alert from 'src/component/base/Alert';
 import Text from 'src/component/base/Text';
-
-// Styles
-import { Alert } from './Snackbar.style';
 
 // Typings
 import { SnackbarProps } from './Snackbar.type';
@@ -14,14 +12,20 @@ import { SnackbarProps } from './Snackbar.type';
 /**
  * Snackbar ...
  */
-const Snackbar: FC<SnackbarProps> = ({ message, action, type, ...props }) => {
+const Snackbar: FC<SnackbarProps & { onClose: () => void }> = ({
+  message,
+  action,
+  type,
+  onClose,
+  ...props
+}) => {
   return (
     <MuiSnackbar
       open={true}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      {...props}
     >
-      {/* TODO: add 'action' handling (particularly for hiding the snackbar) */}
-      <Alert type={type}>
+      <Alert type={type} onClose={onClose}>
         <Text>{message}</Text>
       </Alert>
     </MuiSnackbar>

@@ -9,7 +9,19 @@ const initialState: SnackbarState = {
   snackbars: [
     // TODO: remove sample data
     {
+      type: 'ERROR',
+      message: 'Test snackbar',
+    },
+    {
       type: 'SUCCESS',
+      message: 'Test snackbar',
+    },
+    {
+      type: 'INFO',
+      message: 'Test snackbar',
+    },
+    {
+      type: 'ERROR',
       message: 'Test snackbar',
     },
   ],

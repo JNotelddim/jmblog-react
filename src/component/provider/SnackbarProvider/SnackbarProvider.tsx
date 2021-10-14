@@ -5,21 +5,27 @@ import React, { FC } from 'react';
 import Snackbar from 'src/component/base/Snackbar';
 
 // Typings
-import { selectTopSnackbar } from 'src/redux/snackbar';
-import { useAppSelector } from 'src/hook/redux';
+import { hide, selectTopSnackbar } from 'src/redux/snackbar';
+import { useAppDispatch, useAppSelector } from 'src/hook/redux';
 
 /**
  * SnackbarProvider ...
  */
 const SnackbarProvider: FC = ({ children }) => {
   const activeSnackbar = useAppSelector(selectTopSnackbar);
+  const dispatch = useAppDispatch();
   const { message, type } = activeSnackbar || {};
   // TODO: handle timeouts
   // TODO: handle dismissing, stacking
 
+  // Handlers
+  const handleClose = () => {
+    dispatch(hide());
+  };
+
   return activeSnackbar ? (
     <>
-      <Snackbar message={message} type={type || 'INFO'} />
+      <Snackbar message={message} type={type || 'INFO'} onClose={handleClose} />
       {children}
     </>
   ) : (
