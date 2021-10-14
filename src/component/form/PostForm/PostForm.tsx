@@ -5,6 +5,8 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { usePutPost, useDeletePost } from 'src/hook/api/posts';
+import { handleParseJsonDraftState } from 'src/hook/effect';
+import { useSnackbarNotification } from 'src/hook/effect';
 
 // Components
 import { Box, Button, IconButton } from '@material-ui/core';
@@ -15,19 +17,23 @@ import { Form, TextField, FormFooter, Editor } from './PostForm.style';
 // Types
 import { PostFormData } from 'src/typings';
 import { PostFormProps } from './PostForm.type';
-import { handleParseJsonDraftState } from 'src/hook/effect';
 
 /**
  * PostForm is where the user can write a new blog post or edit an existing one
  */
 const PostForm: React.FC<PostFormProps> = ({ post }) => {
   // Hooks
+  const { openNotification } = useSnackbarNotification();
   const history = useHistory();
   const { register, handleSubmit, formState, control } = useForm<PostFormData>({
     mode: 'onBlur',
     defaultValues: post,
   });
-  const { mutate: deletePost } = useDeletePost();
+  const { mutate: deletePost } = useDeletePost({
+    onSuccess: () => {
+      openNotification({ message: 'Post deleted.', type: 'SUCCESS' });
+    },
+  });
   const { mutate: putPost } = usePutPost({
     onSuccess: () => {
       redirectFromForm();

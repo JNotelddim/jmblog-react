@@ -12,6 +12,7 @@ import { Form } from './ProfileForm.style';
 // Hooks
 import { useForm } from 'react-hook-form';
 import { useProfile, usePutProfile } from 'src/hook/api/user';
+import { useSnackbarNotification } from 'src/hook/effect';
 
 // Types
 import { ProfileFormData } from 'src/typings';
@@ -21,25 +22,51 @@ import { ProfileFormProps } from './ProfileForm.type';
  * ProfileForm creates a form where the user can edit their profile information.
  */
 const ProfileForm: FC<ProfileFormProps> = ({ handleDoneEditing }) => {
+  // Snackbars Hook
+  const { openNotification } = useSnackbarNotification();
+
+  // Profile Fetch Hook
   const {
     data: profile,
     isLoading,
     isError,
-  } = useProfile({ onSettled: (data, error) => reset(data) });
-  const { mutate: putProfile } = usePutProfile({});
-  const { register, handleSubmit, formState, reset } = useForm<ProfileFormData>(
-    {
-      mode: 'onBlur',
-      defaultValues: profile,
-    }
-  );
+  } = useProfile({
+    onSettled: (data, error) => reset(data),
+  });
 
-  const { errors } = formState;
+  // Profile Update Hook
+  const { mutate: putProfile } = usePutProfile({
+    onSuccess: () => {
+      openNotification({ message: 'Profile updated.', type: 'SUCCESS' });
+    },
+    onError: () => {
+      openNotification({
+        message: 'Profile update failed. Please try again later.',
+        type: 'ERROR',
+      });
+    },
+  });
+
+  // Form Hook
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<ProfileFormData>({
+    mode: 'onBlur',
+    defaultValues: profile,
+  });
 
   // Handlers
   const onSubmit = (formData: ProfileFormData) => {
     if (!profile) {
-      return; // Is there a better way to handle this? an error / snackbar?
+      openNotification({
+        message:
+          'There was an issue submitting at this time. Please try again later.',
+        type: 'ERROR',
+      });
+      return;
     }
     putProfile({ ...formData, id: profile.id });
     reset();
