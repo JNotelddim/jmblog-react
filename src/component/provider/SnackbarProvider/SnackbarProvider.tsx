@@ -14,18 +14,24 @@ import { useAppDispatch, useAppSelector } from 'src/hook/redux';
 const SnackbarProvider: FC = ({ children }) => {
   const activeSnackbar = useAppSelector(selectTopSnackbar);
   const dispatch = useAppDispatch();
-  const { message, type } = activeSnackbar || {};
-  // TODO: handle timeouts
-  // TODO: handle dismissing, stacking
+  const { message, type, timeout } = activeSnackbar || {};
 
   // Handlers
   const handleClose = () => {
+    console.log('handleClose');
     dispatch(hide());
   };
 
+  console.log({ type, timeout });
+
   return activeSnackbar ? (
     <>
-      <Snackbar message={message} type={type || 'INFO'} onClose={handleClose} />
+      <Snackbar
+        message={message}
+        type={type || 'INFO'}
+        onClose={handleClose}
+        autoHideDuration={timeout}
+      />
       {children}
     </>
   ) : (

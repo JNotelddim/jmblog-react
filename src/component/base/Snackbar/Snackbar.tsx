@@ -19,10 +19,12 @@ const Snackbar: FC<SnackbarProps & { onClose: () => void }> = ({
   onClose,
   ...props
 }) => {
+  console.log({ props });
   return (
     <MuiSnackbar
       open={true}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      onClose={onClose}
       {...props}
     >
       <Alert type={type} onClose={onClose}>
