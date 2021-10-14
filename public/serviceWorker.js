@@ -21,6 +21,7 @@ const whitelistedOrigins = [
   'http://localhost:8007', // dev
   'https://localhost:8007', // dev // TODO: set up https for api?
   'https:jaredm.online//', // prod
+  'https://jmblog-api.herokuapp.com', // Prod api
 ];
 
 const whitelistedPathRegex = /\/|api|post.|user.|comment.|\/\w$/; // anything under /api
