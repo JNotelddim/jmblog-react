@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Typography } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
 // Components
@@ -7,7 +7,12 @@ import CenteredLayout from 'src/component/layout/CenteredLayout';
 import PostCard from 'src/component/partial/PostCard';
 
 // Styles
-import { ListContainer, MenuContainer, TitleText } from './ListPage.style';
+import {
+  ListContainer,
+  MenuContainer,
+  TitleText,
+  MLText,
+} from './ListPage.style';
 
 // Hooks
 import { usePosts } from 'src/hook/api/posts';
@@ -40,8 +45,8 @@ const ListPage = () => {
       }}
     >
       <TitleText>Posts</TitleText>
-      {isLoading && <Typography color="secondary"> Loading </Typography>}
-      {isError && <Typography color="error"> Error </Typography>}
+      {isLoading && <MLText> Loading... </MLText>}
+      {isError && <MLText color="error"> Error </MLText>}
       {!isLoading && !isError && (
         <div>
           <MenuContainer>
