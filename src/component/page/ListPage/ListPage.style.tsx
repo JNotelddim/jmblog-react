@@ -7,6 +7,10 @@ export const TitleText = styled((props) => (
   paddingLeft: theme.spacing(3),
 }));
 
+export const MLText = styled(Text)(({ theme }) => ({
+  marginLeft: theme.spacing(3),
+}));
+
 export const ListContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
