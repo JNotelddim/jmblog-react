@@ -37,28 +37,35 @@ const AccountPage: FC = () => {
   // Render
   return (
     <CenteredLayout helmetProps={{ title: 'Account' }}>
-      <Text variant="h2">Account</Text>
+      <Box p={3}>
+        <Text variant="h2">Account</Text>
 
-      {viewState === StatesEnum.View && (
-        <>
-          {/* Rearrange these to make it less ugly */}
-          <Box display="flex" flexDirection="column" alignItems="flex-end">
-            <Button onClick={swapToChangingPassword}>Change Password</Button>
-            <Button startIcon={<Edit />} onClick={swapToEditing}>
-              Edit
-            </Button>
-          </Box>
-          <ProfileView />
-        </>
-      )}
+        {viewState === StatesEnum.View && (
+          <>
+            {/* Rearrange these to make it less ugly */}
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="flex-end"
+              mt={2}
+            >
+              <Button onClick={swapToChangingPassword}>Change Password</Button>
+              <Button startIcon={<Edit />} onClick={swapToEditing}>
+                Edit
+              </Button>
+            </Box>
+            <ProfileView />
+          </>
+        )}
 
-      {viewState === StatesEnum.Edit && (
-        <ProfileForm handleDoneEditing={swapToViewing} />
-      )}
+        {viewState === StatesEnum.Edit && (
+          <ProfileForm handleDoneEditing={swapToViewing} />
+        )}
 
-      {viewState === StatesEnum.ChangePassword && (
-        <ChangePasswordForm onCancel={swapToViewing} />
-      )}
+        {viewState === StatesEnum.ChangePassword && (
+          <ChangePasswordForm onCancel={swapToViewing} />
+        )}
+      </Box>
     </CenteredLayout>
   );
 };
