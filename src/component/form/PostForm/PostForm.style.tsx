@@ -3,7 +3,11 @@ import { styled } from '@material-ui/core';
 import BaseTextField from 'src/component/base/TextField';
 import WYSIWYGEditor from 'src/component/base/WYSIWYGEditor';
 
-export const Form = styled('form')({});
+export const Form = styled('form')(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(3),
+  },
+}));
 
 export const TextField = styled(BaseTextField)(({ theme }) => ({
   width: '100%',

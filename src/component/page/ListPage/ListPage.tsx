@@ -29,6 +29,8 @@ const ListPage = () => {
 
   const handleNewPostClick = () => history.push('/post/new');
 
+  // TODO: refactor 'PostListView' out of this and pass in the appropriate posts;
+
   return (
     <CenteredLayout
       helmetProps={{

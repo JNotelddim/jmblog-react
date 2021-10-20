@@ -17,4 +17,5 @@ export const MenuContainer = styled('div')(({ theme }) => ({
   flexDirection: 'row',
   justifyContent: 'flex-end',
   margin: theme.spacing(2, 0),
+  padding: theme.spacing(0, 3),
 }));
