@@ -5,7 +5,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import CenteredLayout from 'src/component/layout/CenteredLayout';
 import LoginForm from 'src/component/form/LoginForm';
-import { Heading, RedirectText, Footer } from './LoginPage.style';
+import { Wrapper, Heading, RedirectText, Footer } from './LoginPage.style';
 
 /**
  * LoginPage is the page where a user goes to log in to their account.
@@ -15,15 +15,17 @@ import { Heading, RedirectText, Footer } from './LoginPage.style';
  */
 const LoginPage: React.FC = () => (
   <CenteredLayout helmetProps={{ title: 'Login' }}>
-    <Heading>Login</Heading>
+    <Wrapper>
+      <Heading>Login</Heading>
 
-    <LoginForm />
+      <LoginForm />
 
-    <Footer>
-      <RedirectText>
-        Don't have an accout? <Link to={'/signup'}>Sign up here.</Link>
-      </RedirectText>
-    </Footer>
+      <Footer>
+        <RedirectText>
+          Don't have an accout? <Link to={'/signup'}>Sign up here.</Link>
+        </RedirectText>
+      </Footer>
+    </Wrapper>
   </CenteredLayout>
 );
 

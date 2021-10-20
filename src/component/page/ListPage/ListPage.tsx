@@ -7,7 +7,7 @@ import CenteredLayout from 'src/component/layout/CenteredLayout';
 import PostCard from 'src/component/partial/PostCard';
 
 // Styles
-import { ListContainer, MenuContainer } from './ListPage.style';
+import { ListContainer, MenuContainer, TitleText } from './ListPage.style';
 
 // Hooks
 import { usePosts } from 'src/hook/api/posts';
@@ -29,6 +29,8 @@ const ListPage = () => {
 
   const handleNewPostClick = () => history.push('/post/new');
 
+  // TODO: refactor 'PostListView' out of this and pass in the appropriate posts;
+
   return (
     <CenteredLayout
       helmetProps={{
@@ -37,9 +39,7 @@ const ListPage = () => {
           'This page lists posts on this blog, with the most recent ones appearing first.',
       }}
     >
-      <Typography color="primary" variant="h1" gutterBottom>
-        Posts
-      </Typography>
+      <TitleText>Posts</TitleText>
       {isLoading && <Typography color="secondary"> Loading </Typography>}
       {isError && <Typography color="error"> Error </Typography>}
       {!isLoading && !isError && (
