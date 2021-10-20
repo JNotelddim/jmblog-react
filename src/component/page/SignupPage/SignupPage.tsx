@@ -8,6 +8,7 @@ import CenteredLayout from 'src/component/layout/CenteredLayout';
 
 // Note that the styles below are from the **Login Page**!
 import {
+  Wrapper,
   Heading,
   Footer,
   RedirectText,
@@ -19,15 +20,17 @@ import {
  */
 const SignupPage: React.FC = () => (
   <CenteredLayout helmetProps={{ title: 'Sign Up' }}>
-    <Heading>Sign up</Heading>
+    <Wrapper>
+      <Heading>Sign up</Heading>
 
-    <SignupForm />
+      <SignupForm />
 
-    <Footer>
-      <RedirectText>
-        Already have an accout? <Link to={'/login'}>Login here.</Link>
-      </RedirectText>
-    </Footer>
+      <Footer>
+        <RedirectText>
+          Already have an accout? <Link to={'/login'}>Login here.</Link>
+        </RedirectText>
+      </Footer>
+    </Wrapper>
   </CenteredLayout>
 );
 
